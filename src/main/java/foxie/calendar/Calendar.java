@@ -65,7 +65,7 @@ public class Calendar {
     * @return hour of the day
     */
    public int getHour() {
-      return (((int) getTodaysTicks()) / 1000 + 6) % 24;
+      return ((int) getTodaysTicks()) / 1000;
    }
 
    /**

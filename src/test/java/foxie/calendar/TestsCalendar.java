@@ -11,12 +11,12 @@ public class TestsCalendar {
       // let's say it is November 8 2, 19:23:33 (unscaled minutes)
       // year 2: 133 days in a year * 24000 * 2 (year) = 6384000
       // November 1st: 111 days, November 8th: 118 days. 118 * 24000 = 2832000 ticks
-      // 19 hours: 1000 * (19 - 6) = 13000
+      // 19 hours: 1000 * 19 = 19000
       // 23 minutes unscaled = 20 * 28 = 460
       // 33 seconds re-scaled = 11
       // ========== 9229471
 
-      return new Calendar(9229471);
+      return new Calendar(9235471);
    }
 
    private static Calendar getCalendar2() {
@@ -26,12 +26,12 @@ public class TestsCalendar {
       // let's say it is December 12 4, 23:49:57 (unscaled minutes)
       // year 2: 133 days in a year * 24000 * 4 (year) = 12768000
       // December 1st: 121 days, November 12th: 132 days. 132 * 24000 = 3168000 ticks
-      // 19 hours: 1000 * (23 - 6) = 17000
+      // 19 hours: 1000 * 23 = 23000
       // 49 minutes unscaled = 20 * 49 = 980
       // 57 seconds re-scaled = 19
       // ========== 15953999
 
-      return new Calendar(15953999);
+      return new Calendar(15959999);
    }
 
    private static Calendar getStartingCalendar() {
@@ -63,7 +63,7 @@ public class TestsCalendar {
 
    @Test
    public void testHour() {
-      Assert.assertEquals("Invalid starting hour", 6, getStartingCalendar().getHour());
+      Assert.assertEquals("Invalid starting hour", 0, getStartingCalendar().getHour());
       Assert.assertEquals("Invalid hour", 19, getCalendar().getHour());
       Assert.assertEquals("Invalid hour", 23, getCalendar2().getHour());
    }
