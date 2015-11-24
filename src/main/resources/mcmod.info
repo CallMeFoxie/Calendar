@@ -1,0 +1,16 @@
+[
+{
+  "modid": "foxielib",
+  "name": "FoxieLib",
+  "description": "Support library for all of CallMeFoxie's mods",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CallMeFoxie"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

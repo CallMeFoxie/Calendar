@@ -1,0 +1,86 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+def VersionBuild = 0
+if (System.getenv("BUILD_NUMBER") != null)
+    VersionBuild = System.getenv("BUILD_NUMBER")
+
+version = "${config.minecraft_version}-${config.mod_version}"
+group = "foxie.calendar"
+archivesBaseName = "Calendar"
+
+minecraft {
+    version = config.minecraft_version + "-" + config.forge_version
+    runDir = "run"
+    replace '@VERSION@', "${config.mod_version}"
+}
+
+repositories {
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+processResources
+        {
+            inputs.property "version", project.version
+            inputs.property "mcversion", project.minecraft.version
+
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod.info'
+
+                expand 'version': project.version, 'mcversion': project.minecraft.version
+            }
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'foxie.calendar.asm.CalendarCoreLoader'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+    }
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+task apiJar(type: Jar) {
+    from(sourceSets.main.java) {
+        include "foxie/calendar/api/"
+    }
+    classifier = 'api'
+}
+
+artifacts {
+    archives deobfJar
+    archives apiJar
+}
+
+build.dependsOn deobfJar, apiJar
