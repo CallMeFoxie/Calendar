@@ -1,9 +1,11 @@
 package foxie.calendar.commands;
 
-import foxie.calendar.Tools;
+import foxie.calendar.api.CalendarAPI;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CommandDate extends CommandBase {
@@ -29,7 +31,10 @@ public class CommandDate extends CommandBase {
          case 0:
             return getListOfStringsMatchingLastWord(params, "set");
          case 2:
-            return Tools.getListOfMonths();
+            ArrayList<String> list = new ArrayList<String>();
+            list.addAll(Arrays.asList(CalendarAPI.getCalendarProvider().getListOfMonthsNumeric()));
+            list.addAll(Arrays.asList(CalendarAPI.getCalendarProvider().getListOfMonthsString()));
+            return list;
       }
       return null;
    }

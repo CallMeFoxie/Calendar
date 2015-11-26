@@ -1,6 +1,6 @@
 package foxie.calendar.commands;
 
-import foxie.calendar.Calendar;
+import foxie.calendar.implementation.CalendarImpl;
 import net.minecraft.command.CommandTime;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -44,7 +44,7 @@ public class FixedCommandTime extends CommandTime {
 
    private void processCommandAdd(World world, String time) {
       try {
-         Calendar calendar = new Calendar(world);
+         CalendarImpl calendar = new CalendarImpl(world);
          calendar.addSeconds(Integer.parseInt(time));
       } catch (Exception exception) {
          throw new WrongUsageException("commands.fixedtime.usage");
@@ -53,7 +53,7 @@ public class FixedCommandTime extends CommandTime {
 
    private void processCommandSet(World world, String time) {
       try {
-         Calendar calendar = new Calendar(world);
+         CalendarImpl calendar = new CalendarImpl(world);
 
          if (time.equals("morning")) calendar.setHour(0);
          if (time.equals("midday")) calendar.setHour(6);
@@ -61,7 +61,7 @@ public class FixedCommandTime extends CommandTime {
          if (time.equals("midnight")) calendar.setHour(18);
 
          int iTime = Integer.parseInt(time);
-         Calendar c2 = new Calendar(iTime);
+         CalendarImpl c2 = new CalendarImpl(iTime);
          calendar.setHour(c2.getHour());
          calendar.setMinute(c2.getMinute());
          calendar.setSecond(c2.getSecond());

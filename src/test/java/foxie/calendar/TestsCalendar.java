@@ -1,6 +1,6 @@
 package foxie.calendar;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
+import foxie.calendar.implementation.CalendarImpl;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -9,7 +9,7 @@ public class TestsCalendar {
       Config.days = new int[]{12, 9, 12, 10, 12, 10, 12, 12, 10, 12, 10, 12}; // reset to known value
    }
 
-   private static Calendar getCalendar() {
+   private static CalendarImpl getCalendar() {
       resetDays();
 
       // maths:
@@ -21,10 +21,10 @@ public class TestsCalendar {
       // 33 seconds re-scaled = 11
       // ========== 9229471
 
-      return new Calendar(9235471);
+      return new CalendarImpl(9235471);
    }
 
-   private static Calendar getCalendar2() {
+   private static CalendarImpl getCalendar2() {
       resetDays();
 
       // maths:
@@ -36,16 +36,16 @@ public class TestsCalendar {
       // 57 seconds re-scaled = 19
       // ========== 15953999
 
-      return new Calendar(15959999);
+      return new CalendarImpl(15959999);
    }
 
-   private static Calendar getStartingCalendar() {
-      return new Calendar(0);
+   private static CalendarImpl getStartingCalendar() {
+      return new CalendarImpl(0);
    }
 
    @Test
    public void testYear() {
-      Assert.assertEquals("Bad count of days per year", 133, Calendar.getDaysInYear());
+      Assert.assertEquals("Bad count of days per year", 133, getStartingCalendar().getDaysInYear());
 
       Assert.assertEquals("Invalid starting year", 0, getStartingCalendar().getYear());
       Assert.assertEquals("Invalid year", 2, getCalendar().getYear());
@@ -88,9 +88,9 @@ public class TestsCalendar {
    }
 
    @Test
-   public void advancedTest() throws InvalidArgumentException {
+   public void advancedTest() {
       resetDays();
-      Calendar calendar = new Calendar();
+      CalendarImpl calendar = new CalendarImpl();
       calendar.setYear(4);
       calendar.setMonth(11);
       calendar.setDay(11);
@@ -108,7 +108,7 @@ public class TestsCalendar {
 
       Assert.assertEquals(getCalendar2().getInTicks(), calendar.getInTicks());
 
-      Calendar calendar2 = new Calendar();
+      CalendarImpl calendar2 = new CalendarImpl();
       calendar2.setYear(5);
       calendar2.setMinute(5);
       calendar.addScaledMinutes(6);
