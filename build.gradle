@@ -59,12 +59,12 @@ processResources
                 exclude 'mcmod.info'
             }
         }
-jar {
+/*jar {
     manifest {
         attributes 'FMLCorePlugin': 'foxie.calendar.asm.CalendarCoreLoader'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
-}
+}*/
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
