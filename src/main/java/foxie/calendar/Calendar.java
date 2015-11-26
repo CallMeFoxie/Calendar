@@ -1,6 +1,7 @@
 package foxie.calendar;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 
 public class Calendar implements Comparable<Calendar> {
@@ -10,6 +11,15 @@ public class Calendar implements Comparable<Calendar> {
 
    private WorldProvider provider;
    private long          worldTicks;
+
+   /**
+    * New Calendar instance. Provides 1/3rd of the magic. (The rest is set via config and fired events.)
+    *
+    * @param world world to do the magic on
+    */
+   public Calendar(World world) {
+      this(world.provider);
+   }
 
    /**
     * New Calendar instance. Provides 1/3rd of the magic. (The rest is set via config and fired events.)

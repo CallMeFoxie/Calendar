@@ -1,0 +1,1 @@
+commands.fixedtime.usage=/time set|add <morning|midday|evening|midnight|0-23999|help>

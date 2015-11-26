@@ -2,9 +2,8 @@ package foxie.calendar;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.*;
+import foxie.calendar.commands.FixedCommandTime;
 import foxie.calendar.proxy.ProxyCommon;
 
 @Mod(modid = CalendarMod.MODID, name = CalendarMod.NAME, version = CalendarMod.VERSION)
@@ -32,6 +31,15 @@ public class CalendarMod {
    @Mod.EventHandler
    public void postinit(FMLPostInitializationEvent event) {
       proxy.postinit(event);
+   }
+
+   @Mod.EventHandler
+   public void serverStarting(FMLServerStartingEvent event) {
+      event.registerServerCommand(new FixedCommandTime());
+   }
+
+   @Mod.EventHandler
+   public void serverStarted(FMLServerStartedEvent event) {
    }
 
 }
