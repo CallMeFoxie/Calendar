@@ -53,22 +53,22 @@ public class Events {
       ICalendarProvider previousCalendar = providerMap.get(event.world.provider.dimensionId);
 
       if (previousCalendar.getDay() != newCalendar.getDay()) {
-         fireEventNewDay(event.world, newCalendar);
+         fireEventNewDay(event.world, previousCalendar);
       }
 
       if (previousCalendar.getMonth() != newCalendar.getMonth()) {
-         fireEventNewMonth(event.world, newCalendar);
+         fireEventNewMonth(event.world, previousCalendar);
       }
 
       if (previousCalendar.getYear() != newCalendar.getYear()) {
-         fireEventNewYear(event.world, newCalendar);
+         fireEventNewYear(event.world, previousCalendar);
       }
 
       ISeason previousSeason = CalendarAPI.getSeasonProvider().getSeason(previousCalendar);
       ISeason newSeason = CalendarAPI.getSeasonProvider().getSeason(newCalendar);
 
       if (previousCalendar != newSeason) {
-         fireEventNewSeason(event.world, newCalendar);
+         fireEventNewSeason(event.world, previousCalendar, previousSeason);
       }
    }
 
@@ -84,7 +84,7 @@ public class Events {
       MinecraftForge.EVENT_BUS.post(new DateTimeEvent.NewYearEvent(world, calendar));
    }
 
-   private void fireEventNewSeason(World world, ICalendarProvider calendar) {
-      MinecraftForge.EVENT_BUS.post(new DateTimeEvent.NewSeasonEvent(world, calendar));
+   private void fireEventNewSeason(World world, ICalendarProvider calendar, ISeason season) {
+      MinecraftForge.EVENT_BUS.post(new DateTimeEvent.NewSeasonEvent(world, calendar, season));
    }
 }

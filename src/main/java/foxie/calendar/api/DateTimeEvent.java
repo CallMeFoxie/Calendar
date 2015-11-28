@@ -16,7 +16,7 @@ public class DateTimeEvent extends Event {
       return world;
    }
 
-   public ICalendarProvider getCalendar() {
+   public ICalendarProvider getOldCalendar() {
       return provider;
    }
 
@@ -39,8 +39,15 @@ public class DateTimeEvent extends Event {
    }
 
    public static class NewSeasonEvent extends DateTimeEvent {
-      public NewSeasonEvent(World world, ICalendarProvider provider) {
+      private ISeason season;
+
+      public NewSeasonEvent(World world, ICalendarProvider provider, ISeason season) {
          super(world, provider);
+         this.season = season;
+      }
+
+      public ISeason getOldSeason() {
+         return this.season;
       }
    }
 }
