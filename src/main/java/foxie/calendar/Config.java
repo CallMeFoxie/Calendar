@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class Config {
 
-   public static int[]    days   = new int[]{12, 9, 12, 10, 12, 10, 12, 12, 10, 12, 10, 12};
+   public static int[]    days   = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
    public static String[] months = new String[]{"January", "February", "March", "April",
            "May", "June", "July", "August", "September", "October", "November", "December"};
 
@@ -21,7 +21,7 @@ public class Config {
       cfg = new Configuration(file);
 
       // fetch months
-      days = cfg.get("calendar", "days", days, "Days in months").getIntList();
+      days = cfg.get("calendar", "days", days, "Days in months\nChanging for existing worlds will recalculate it").getIntList();
       months = cfg.getStringList("monthNames", "calendar", months, "Named months");
 
       if (days.length > months.length) {
@@ -32,6 +32,9 @@ public class Config {
 
       enableFixedTimeCommand = cfg.getBoolean("enableFixedTimeCommand", "config", enableFixedTimeCommand, "Enable fixed time command");
       enableDateCommand = cfg.getBoolean("enableDateCommand", "config", enableDateCommand, "Enable date command");
+
+      if (cfg.hasChanged())
+         cfg.save();
 
    }
 

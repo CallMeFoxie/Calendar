@@ -46,13 +46,13 @@ public class Tools {
    }
 
    public static void sendCurrentDateTime(ICommandSender sender, ICalendarProvider calendar) {
-      sender.addChatMessage(new ChatComponentText("It is " + calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()
+      sender.addChatMessage(new ChatComponentText("It is " + (calendar.getDay() + 1) + ". " + (calendar.getMonth() + 1) + ". " + calendar.getYear()
               + ", " + calendar.getHour() + ":" + calendar.getMinute()));
    }
 
    public static void listMonths(ICommandSender sender) {
       for (int i = 0; i < CalendarAPI.getCalendarProvider().getNumberOfMonths(); i++) {
-         sender.addChatMessage(new ChatComponentText("  " + i + ": " + CalendarAPI.getCalendarProvider().getListOfMonthsString()[i]));
+         sender.addChatMessage(new ChatComponentText("  " + (i + 1) + ": " + CalendarAPI.getCalendarProvider().getListOfMonthsString()[i]));
       }
    }
 }

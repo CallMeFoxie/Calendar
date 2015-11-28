@@ -41,8 +41,8 @@ public class CommandDate extends CommandBase {
          else if (!args[0].equals("set"))
             throw new WrongUsageException("commands.date.usage");
          else {
-            calendar.setDay(Integer.parseInt(args[1]));
-            if (args.length > 2) calendar.setMonth(Integer.parseInt(args[2]));
+            calendar.setDay(Integer.parseInt(args[1]) - 1);
+            if (args.length > 2) calendar.setMonth(Integer.parseInt(args[2]) - 1);
             if (args.length > 3) calendar.setYear(Integer.parseInt(args[3]));
             Tools.sendCurrentDateTime(sender, calendar);
          }
