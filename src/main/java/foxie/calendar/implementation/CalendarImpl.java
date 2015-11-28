@@ -73,7 +73,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public ICalendarProvider setDay(int newDay) {
-      if (newDay >= Config.days[getMonth()])
+      if (newDay >= Config.days[getMonth()] || newDay < 0)
          throw new IllegalArgumentException("There is no such day in this month!");
 
 
