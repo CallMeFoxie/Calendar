@@ -324,9 +324,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public String[] getListOfMonthsString() {
-
-      return null;
-
+      return Config.months;
    }
 
    private long getTodaysTicks() {

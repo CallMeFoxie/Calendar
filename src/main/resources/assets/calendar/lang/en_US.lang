@@ -1,3 +1,4 @@
 commands.fixedtime.usage=/time set|add|list <morning|midday|evening|midnight|0-23999|help>
-commands.date.usage=/date [set <day> [<month> [<year>]]]
+commands.date.usage=/date [list|set <day> [<month> [<year>]]]
+commands.date.listing=CalendarProvider provides these months:
 commands.date.nosuchday=There is no such day in a year!

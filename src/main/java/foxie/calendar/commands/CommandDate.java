@@ -7,6 +7,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public class CommandDate extends CommandBase {
             sender.addChatMessage(new ChatComponentText(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
          } else if (args.length == 1) {
             if (args[0].equals("list")) {
+               sender.addChatMessage(new ChatComponentTranslation("commands.date.listing"));
                Tools.listMonths(sender);
             }
          } else if (args.length == 2 || args.length > 4)
