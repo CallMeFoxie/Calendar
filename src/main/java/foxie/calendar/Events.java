@@ -70,6 +70,8 @@ public class Events {
       if (previousCalendar != newSeason) {
          fireEventNewSeason(event.world, previousCalendar, previousSeason);
       }
+
+      providerMap.put(event.world.provider.dimensionId, newCalendar);
    }
 
    private void fireEventNewDay(World world, ICalendarProvider calendar) {
