@@ -104,7 +104,7 @@ public interface ICalendarProvider {
 
    ICalendarProvider create(long time);
 
-   String[] getListOfMonthsNumeric();
+   int getNumberOfMonths();
 
    String[] getListOfMonthsString();
 }

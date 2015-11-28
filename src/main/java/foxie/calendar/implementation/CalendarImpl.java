@@ -73,7 +73,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public void setDay(int newDay) {
-      if (newDay > Config.days[getMonth()])
+      if (newDay >= Config.days[getMonth()])
          throw new IllegalArgumentException("There is no such day in this month!");
 
 
@@ -133,7 +133,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          worldTicks += (newYear - getYear()) * getTicksPerYear();
 
       } else
-         provider.setWorldTime(provider.getWorldTime() + (newYear - getYear()) * getTicksPerYear());
+         provider.setWorldTime(provider.getWorldTime() + (long) (newYear - getYear()) * (long) getTicksPerYear());
    }
 
    @Override
@@ -318,18 +318,15 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public String[] getListOfMonthsNumeric() {
-      String[] months = new String[Config.days.length];
-      for (int i = 0; i < months.length; i++)
-         months[i] = String.valueOf(i);
-
-      return months;
+   public int getNumberOfMonths() {
+      return Config.days.length;
    }
 
    @Override
    public String[] getListOfMonthsString() {
+
       return null;
-      // TODO when idea stops breaking
+
    }
 
    private long getTodaysTicks() {

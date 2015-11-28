@@ -120,5 +120,19 @@ public class TestsCalendar {
       calendar.addMinutes(-5);
 
       Assert.assertEquals(getCalendar2().getInTicks(), calendar.getInTicks());
+
+      calendar2 = new CalendarImpl();
+      calendar2.setHour(5);
+      calendar2.setMinute(10);
+      calendar2.setDay(1);
+      calendar2.setMonth(1);
+      calendar2.setYear(1);
+
+      CalendarImpl calendar3 = new CalendarImpl();
+      calendar3.setHour(5);
+      calendar3.setMinute(10);
+
+      Assert.assertEquals(calendar3.getMinute(), calendar2.getMinute());
+      Assert.assertEquals(calendar3.getHour(), calendar2.getHour());
    }
 }

@@ -1,5 +1,6 @@
 package foxie.calendar.commands;
 
+import foxie.calendar.Tools;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
 import net.minecraft.command.CommandBase;
@@ -29,7 +30,11 @@ public class CommandDate extends CommandBase {
       try {
          if (args.length == 0) {
             sender.addChatMessage(new ChatComponentText(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
-         } else if (args.length == 1 || args.length > 4)
+         } else if (args.length == 1) {
+            if (args[0].equals("list")) {
+               Tools.listMonths(sender);
+            }
+         } else if (args.length == 2 || args.length > 4)
             throw new WrongUsageException("commands.date.usage");
          else if (!args[0].equals("set"))
             throw new WrongUsageException("commands.date.usage");
@@ -37,7 +42,10 @@ public class CommandDate extends CommandBase {
             calendar.setDay(Integer.parseInt(args[1]));
             if (args.length > 2) calendar.setMonth(Integer.parseInt(args[2]));
             if (args.length > 3) calendar.setYear(Integer.parseInt(args[3]));
+            Tools.sendCurrentDateTime(sender, calendar);
          }
+      } catch (IllegalArgumentException e) {
+         throw new WrongUsageException("commands.date.nosuchday");
       } catch (Exception e) {
          throw new WrongUsageException("commands.date.usage");
       }
@@ -51,7 +59,9 @@ public class CommandDate extends CommandBase {
             return getListOfStringsMatchingLastWord(params, "set");
          case 2:
             ArrayList<String> list = new ArrayList<String>();
-            list.addAll(Arrays.asList(CalendarAPI.getCalendarProvider().getListOfMonthsNumeric()));
+            for (int i = 0; i < CalendarAPI.getCalendarProvider().getNumberOfMonths(); i++) {
+               list.add(String.valueOf(i));
+            }
             list.addAll(Arrays.asList(CalendarAPI.getCalendarProvider().getListOfMonthsString()));
             return list;
       }

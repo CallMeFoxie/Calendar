@@ -8,6 +8,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -21,6 +22,12 @@ public class FixedCommandTime extends CommandTime {
 
    @Override
    public void processCommand(ICommandSender sender, String[] params) {
+      if (params.length == 0) {
+         ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
+         sender.addChatMessage(new ChatComponentText("It is " + calendar.getHour() + ":" + calendar.getMinute()));
+         return;
+      }
+
       if (params.length < 2) {
          throw new WrongUsageException("commands.fixedtime.usage");
       }
@@ -46,7 +53,7 @@ public class FixedCommandTime extends CommandTime {
 
    private void processCommandAdd(World world, String time) {
       try {
-         CalendarImpl calendar = new CalendarImpl(world);
+         ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
          calendar.addSeconds(Integer.parseInt(time));
       } catch (Exception exception) {
          throw new WrongUsageException("commands.fixedtime.usage");
