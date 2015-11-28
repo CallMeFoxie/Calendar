@@ -72,7 +72,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setDay(int newDay) {
+   public ICalendarProvider setDay(int newDay) {
       if (newDay >= Config.days[getMonth()])
          throw new IllegalArgumentException("There is no such day in this month!");
 
@@ -81,6 +81,8 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          worldTicks += (newDay - getDay()) * TICKS_PER_DAY;
       else
          provider.setWorldTime(provider.getWorldTime() + (newDay - getDay()) * TICKS_PER_DAY);
+
+      return this;
    }
 
    @Override
@@ -89,7 +91,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setMonth(int newMonth) {
+   public ICalendarProvider setMonth(int newMonth) {
       if (newMonth < 0 || newMonth >= Config.days.length)
          throw new IllegalArgumentException("Month has to be in the range of 0 - " + Config.days.length);
 
@@ -117,6 +119,8 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          worldTicks += toDeduct;
       else
          provider.setWorldTime(provider.getWorldTime() + toDeduct);
+
+      return this;
    }
 
    @Override
@@ -125,7 +129,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setYear(int newYear) {
+   public ICalendarProvider setYear(int newYear) {
       if (newYear < 0)
          throw new IllegalArgumentException("Hour has to be in the range of 0 - 23");
 
@@ -134,6 +138,8 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
       } else
          provider.setWorldTime(provider.getWorldTime() + (long) (newYear - getYear()) * (long) getTicksPerYear());
+
+      return this;
    }
 
    @Override
@@ -142,7 +148,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setHour(int newHour) {
+   public ICalendarProvider setHour(int newHour) {
       if (newHour < 0 || newHour > 23)
          throw new IllegalArgumentException("Hour has to be in the range of 0 - 23");
 
@@ -150,6 +156,8 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          worldTicks += (newHour - getHour()) * TICKS_PER_HOUR;
       else
          provider.setWorldTime(provider.getWorldTime() + (newHour - getHour()) * TICKS_PER_HOUR);
+
+      return this;
    }
 
 
@@ -159,7 +167,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setMinute(int newMinutes) {
+   public ICalendarProvider setMinute(int newMinutes) {
       if (newMinutes < 0 || newMinutes > 49)
          throw new IllegalArgumentException("Minutes have to be in the range of 0 - 49");
 
@@ -167,6 +175,8 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          worldTicks += (newMinutes - getMinute()) * TICKS_PER_MINUTE;
       else
          provider.setWorldTime(provider.getWorldTime() + (newMinutes - getMinute()) * TICKS_PER_MINUTE);
+
+      return this;
    }
 
    @Override
@@ -175,8 +185,10 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setScaledMinute(int newMinute) {
+   public ICalendarProvider setScaledMinute(int newMinute) {
       setMinute((int) (newMinute * (5f / 6f)));
+
+      return this;
    }
 
    @Override
@@ -185,8 +197,10 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setScaledSecond(int newSecond) {
+   public ICalendarProvider setScaledSecond(int newSecond) {
       setSecond(newSecond / 3);
+
+      return this;
    }
 
    @Override
@@ -195,7 +209,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public void setSecond(int newSecond) {
+   public ICalendarProvider setSecond(int newSecond) {
       if (newSecond < 0 || newSecond > 19)
          throw new IllegalArgumentException("Seconds have to be in the range of 0 - 19");
 
@@ -203,16 +217,20 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          worldTicks += (newSecond - getSecond());
       else
          provider.setWorldTime(provider.getWorldTime() + (newSecond - getSecond()));
+
+      return this;
    }
 
    ////////////// ================= increment/decrement classes
    @Override
-   public void addScaledSeconds(int seconds) {
+   public ICalendarProvider addScaledSeconds(int seconds) {
       addSeconds(seconds / 3);
+
+      return this;
    }
 
    @Override
-   public void addSeconds(int seconds) {
+   public ICalendarProvider addSeconds(int seconds) {
       int newSeconds = getSecond() + seconds;
       while (newSeconds > 19) {
          addMinutes(1);
@@ -225,15 +243,19 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       }
 
       setSecond(newSeconds);
+
+      return this;
    }
 
    @Override
-   public void addScaledMinutes(int minutes) {
+   public ICalendarProvider addScaledMinutes(int minutes) {
       addMinutes((int) (minutes * (5f / 6f)));
+
+      return this;
    }
 
    @Override
-   public void addMinutes(int minutes) {
+   public ICalendarProvider addMinutes(int minutes) {
       int newMinute = getMinute() + minutes;
       while (newMinute > 49) {
          addHours(1);
@@ -245,10 +267,12 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       }
 
       setMinute(newMinute);
+
+      return this;
    }
 
    @Override
-   public void addHours(int hours) {
+   public ICalendarProvider addHours(int hours) {
       int newHour = getHour() + hours;
       while (newHour > 23) {
          addDays(1);
@@ -261,10 +285,12 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       }
 
       setHour(newHour);
+
+      return this;
    }
 
    @Override
-   public void addDays(int days) {
+   public ICalendarProvider addDays(int days) {
       int newDay = getDay() + days;
       setDay(0);
 
@@ -278,10 +304,12 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       }
 
       setDay(newDay);
+
+      return this;
    }
 
    @Override
-   public void addMonths(int months) {
+   public ICalendarProvider addMonths(int months) {
       int newMonth = getMonth() + months;
       setMonth(0);
       while (newMonth >= Config.days.length) {
@@ -295,11 +323,13 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
       setMonth(newMonth);
 
+      return this;
    }
 
    @Override
-   public void addYears(int years) {
+   public ICalendarProvider addYears(int years) {
       setYear(getYear() + years);
+      return this;
    }
 
    @Override
@@ -355,5 +385,10 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          return 1;
 
       return (int) (getInTicks() - calendar.getInTicks());
+   }
+
+   @Override
+   public ICalendarProvider copy() {
+      return new CalendarImpl(getWorldTicks());
    }
 }

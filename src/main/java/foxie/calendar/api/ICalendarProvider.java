@@ -22,7 +22,7 @@ public interface ICalendarProvider {
     */
    int getDay();
 
-   void setDay(int newDay);
+   ICalendarProvider setDay(int newDay);
 
    /**
     * Gets a month for a given time. Months are calculated from 0
@@ -31,7 +31,7 @@ public interface ICalendarProvider {
     */
    int getMonth();
 
-   void setMonth(int newMonth);
+   ICalendarProvider setMonth(int newMonth);
 
    /**
     * Gets a year. Years are calculated from 0
@@ -40,7 +40,7 @@ public interface ICalendarProvider {
     */
    int getYear();
 
-   void setYear(int newYear);
+   ICalendarProvider setYear(int newYear);
 
    /**
     * Calculates current hour. Day begins at 00:00 and ends at 23:59
@@ -49,7 +49,7 @@ public interface ICalendarProvider {
     */
    int getHour();
 
-   void setHour(int newHour);
+   ICalendarProvider setHour(int newHour);
 
    /**
     * Calculates current minute. Note that there are 50 minutes, but it is rescaled to 60 minutes per hour!
@@ -63,35 +63,35 @@ public interface ICalendarProvider {
     *
     * @param newMinutes
     */
-   void setMinute(int newMinutes);
+   ICalendarProvider setMinute(int newMinutes);
 
    int getScaledMinute();
 
-   void setScaledMinute(int newMinute);
+   ICalendarProvider setScaledMinute(int newMinute);
 
    int getScaledSecond();
 
-   void setScaledSecond(int newSecond);
+   ICalendarProvider setScaledSecond(int newSecond);
 
    int getSecond();
 
-   void setSecond(int newSecond);
+   ICalendarProvider setSecond(int newSecond);
 
-   void addScaledSeconds(int seconds);
+   ICalendarProvider addScaledSeconds(int seconds);
 
-   void addSeconds(int seconds);
+   ICalendarProvider addSeconds(int seconds);
 
-   void addScaledMinutes(int minutes);
+   ICalendarProvider addScaledMinutes(int minutes);
 
-   void addMinutes(int minutes);
+   ICalendarProvider addMinutes(int minutes);
 
-   void addHours(int hours);
+   ICalendarProvider addHours(int hours);
 
-   void addDays(int days);
+   ICalendarProvider addDays(int days);
 
-   void addMonths(int months);
+   ICalendarProvider addMonths(int months);
 
-   void addYears(int years);
+   ICalendarProvider addYears(int years);
 
    int getDaysInMonth(int month);
 
@@ -107,4 +107,6 @@ public interface ICalendarProvider {
    int getNumberOfMonths();
 
    String[] getListOfMonthsString();
+
+   ICalendarProvider copy();
 }

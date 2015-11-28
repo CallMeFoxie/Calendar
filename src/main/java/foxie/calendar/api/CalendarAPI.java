@@ -12,6 +12,7 @@ public class CalendarAPI {
    private static ISeasonProvider   seasonProvider;
    private static ICalendarProvider calendarProvider;
 
+   // TODO make the API world specific
    public static ISeasonProvider getSeasonProvider() {
       return seasonProvider;
    }

@@ -57,4 +57,8 @@ public class Calendar {
    public void serverStarted(FMLServerStartedEvent event) {
    }
 
+   public Config getConfig() {
+      return config;
+   }
+
 }

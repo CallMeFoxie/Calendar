@@ -16,5 +16,5 @@ public interface ISeasonProvider {
     *
     * @return
     */
-   String[] getAllSeasons();
+   ISeason[] getAllSeasons();
 }

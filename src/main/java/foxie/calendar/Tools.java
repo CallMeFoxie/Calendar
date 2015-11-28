@@ -2,6 +2,7 @@ package foxie.calendar;
 
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
+import foxie.calendar.api.ISeason;
 import foxie.calendar.implementation.CalendarImpl;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.ChatComponentText;
@@ -54,5 +55,9 @@ public class Tools {
       for (int i = 0; i < CalendarAPI.getCalendarProvider().getNumberOfMonths(); i++) {
          sender.addChatMessage(new ChatComponentText("  " + (i + 1) + ": " + CalendarAPI.getCalendarProvider().getListOfMonthsString()[i]));
       }
+   }
+
+   public static ISeason getSeason(ICalendarProvider calendar) {
+      return CalendarAPI.getSeasonProvider().getSeason(calendar);
    }
 }

@@ -46,4 +46,8 @@ public class Config {
 
    public void postinit() {
    }
+
+   public Configuration getConfig() {
+      return cfg;
+   }
 }
