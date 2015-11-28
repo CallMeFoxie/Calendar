@@ -7,7 +7,7 @@ import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.commands.CommandDate;
 import foxie.calendar.commands.FixedCommandTime;
 import foxie.calendar.implementation.CalendarImpl;
-import foxie.calendar.implementation.SeasonImpl;
+import foxie.calendar.implementation.SeasonProvider;
 import foxie.calendar.proxy.ProxyCommon;
 
 @Mod(modid = Calendar.MODID, name = Calendar.NAME, version = Calendar.VERSION)
@@ -31,7 +31,7 @@ public class Calendar {
 
       // register default providers
       CalendarAPI.registerCalendarProvider(new CalendarImpl(0));
-      CalendarAPI.registerSeasonProvider(new SeasonImpl());
+      CalendarAPI.registerSeasonProvider(new SeasonProvider());
    }
 
    @Mod.EventHandler

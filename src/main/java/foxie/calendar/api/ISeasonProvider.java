@@ -1,13 +1,20 @@
 package foxie.calendar.api;
 
-import foxie.calendar.implementation.CalendarImpl;
-
 public interface ISeasonProvider {
-   String getSeasonName(CalendarImpl calendar);
+   ISeason getSeason(ICalendarProvider calendar);
 
-   int getSeasonOrdinal(CalendarImpl calendar);
+   /**
+    * Get season progress (0 - 1, how far has the season progressed)
+    *
+    * @param calendar
+    * @return
+    */
+   float getSeasonProgress(ICalendarProvider calendar);
 
-   float getSeasonProgress(CalendarImpl calendar);
-
+   /**
+    * All the season names!
+    *
+    * @return
+    */
    String[] getAllSeasons();
 }
