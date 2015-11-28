@@ -24,24 +24,31 @@ public class Calendar {
 
    private static Config config;
 
+   private Events events;
+
    @Mod.EventHandler
    public void preinit(FMLPreInitializationEvent event) {
+      events = new Events();
       proxy.preinit(event);
       config = new Config(event.getSuggestedConfigurationFile());
 
       // register default providers
       CalendarAPI.registerCalendarProvider(new CalendarImpl(0));
       CalendarAPI.registerSeasonProvider(new SeasonProvider());
+
+      events.preinit();
    }
 
    @Mod.EventHandler
    public void init(FMLInitializationEvent event) {
       proxy.init(event);
+      events.init();
    }
 
    @Mod.EventHandler
    public void postinit(FMLPostInitializationEvent event) {
       proxy.postinit(event);
+      events.postinit();
    }
 
    @Mod.EventHandler
@@ -55,6 +62,7 @@ public class Calendar {
 
    @Mod.EventHandler
    public void serverStarted(FMLServerStartedEvent event) {
+      events.serverStarted();
    }
 
    public Config getConfig() {

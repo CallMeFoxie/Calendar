@@ -34,11 +34,11 @@ public class CalendarAPI {
       return calendarProvider.create(world);
    }
 
-   public static ICalendarProvider getCalendarProvider(WorldProvider provider) {
+   public static ICalendarProvider getCalendarInstance(WorldProvider provider) {
       return calendarProvider.create(provider);
    }
 
-   public static ICalendarProvider getCalendarProvider(long time) {
+   public static ICalendarProvider getCalendarInstance(long time) {
       return calendarProvider.create(time);
    }
 
