@@ -17,15 +17,15 @@ public class SeasonProvider implements ISeasonProvider {
 
    public SeasonProvider() {
       // init the 4 seasons
-      ICalendarProvider baseCalendar = CalendarAPI.getCalendarProvider();
+      ICalendarProvider baseCalendar = CalendarAPI.getCalendarInstance();
       // load them from the config
 
       // init with default values
       seasons = new ArrayList<ISeason>();
-      seasons.add(new Season("winter", CalendarAPI.getCalendarProvider().setDay(21).setMonth(11)));
-      seasons.add(new Season("summer", CalendarAPI.getCalendarProvider().setDay(21).setMonth(5)));
-      seasons.add(new Season("spring", CalendarAPI.getCalendarProvider().setDay(21).setMonth(2)));
-      seasons.add(new Season("autumn", CalendarAPI.getCalendarProvider().setDay(21).setMonth(8)));
+      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11)));
+      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5)));
+      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2)));
+      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8)));
 
       // now actually read them from the config
       Configuration cfg = Calendar.INSTANCE.getConfig().getConfig();

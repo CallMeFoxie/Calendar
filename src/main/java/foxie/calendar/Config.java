@@ -14,6 +14,7 @@ public class Config {
 
    public static boolean enableFixedTimeCommand = true;
    public static boolean enableDateCommand      = true;
+   public static boolean enableSeasonCommand    = true;
 
    private Configuration cfg;
 
@@ -32,6 +33,7 @@ public class Config {
 
       enableFixedTimeCommand = cfg.getBoolean("enableFixedTimeCommand", "config", enableFixedTimeCommand, "Enable fixed time command");
       enableDateCommand = cfg.getBoolean("enableDateCommand", "config", enableDateCommand, "Enable date command");
+      enableSeasonCommand = cfg.getBoolean("enableSeasonCommand", "config", enableSeasonCommand, "Enable season command");
 
       if (cfg.hasChanged())
          cfg.save();

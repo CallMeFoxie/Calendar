@@ -24,6 +24,10 @@ public interface ICalendarProvider {
 
    ICalendarProvider setDay(int newDay);
 
+   int getScaledDay();
+
+   ICalendarProvider setScaledDay(int newDay);
+
    /**
     * Gets a month for a given time. Months are calculated from 0
     *
@@ -32,6 +36,10 @@ public interface ICalendarProvider {
    int getMonth();
 
    ICalendarProvider setMonth(int newMonth);
+
+   int getScaledMonth();
+
+   ICalendarProvider setScaledMonth(int newMonth);
 
    /**
     * Gets a year. Years are calculated from 0

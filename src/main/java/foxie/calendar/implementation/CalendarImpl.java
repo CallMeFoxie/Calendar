@@ -86,6 +86,16 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
+   public int getScaledDay() {
+      return getDay() + 1;
+   }
+
+   @Override
+   public ICalendarProvider setScaledDay(int newDay) {
+      return setDay(newDay - 1);
+   }
+
+   @Override
    public int getMonth() {
       return getMonth((int) ((getWorldTicks() / 24000) % getDaysInYear()));
    }
@@ -121,6 +131,16 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          provider.setWorldTime(provider.getWorldTime() + toDeduct);
 
       return this;
+   }
+
+   @Override
+   public int getScaledMonth() {
+      return getMonth() + 1;
+   }
+
+   @Override
+   public ICalendarProvider setScaledMonth(int newMonth) {
+      return setMonth(newMonth - 1);
    }
 
    @Override

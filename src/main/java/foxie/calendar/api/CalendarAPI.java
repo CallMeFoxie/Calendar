@@ -42,7 +42,7 @@ public class CalendarAPI {
       return calendarProvider.create(time);
    }
 
-   public static ICalendarProvider getCalendarProvider() {
+   public static ICalendarProvider getCalendarInstance() {
       return calendarProvider.create(0);
    }
 }

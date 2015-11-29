@@ -30,7 +30,7 @@ public class CommandDate extends CommandBase {
 
       try {
          if (args.length == 0) {
-            sender.addChatMessage(new ChatComponentText(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
+            sender.addChatMessage(new ChatComponentText(calendar.getScaledDay() + ". " + calendar.getScaledMonth() + ". " + calendar.getYear()));
          } else if (args.length == 1) {
             if (args[0].equals("list")) {
                sender.addChatMessage(new ChatComponentTranslation("commands.date.listing"));
@@ -41,8 +41,8 @@ public class CommandDate extends CommandBase {
          else if (!args[0].equals("set"))
             throw new WrongUsageException("commands.date.usage");
          else {
-            calendar.setDay(Integer.parseInt(args[1]) - 1);
-            if (args.length > 2) calendar.setMonth(Integer.parseInt(args[2]) - 1);
+            calendar.setScaledDay(Integer.parseInt(args[1]));
+            if (args.length > 2) calendar.setScaledMonth(Integer.parseInt(args[2]));
             if (args.length > 3) calendar.setYear(Integer.parseInt(args[3]));
             Tools.sendCurrentDateTime(sender, calendar);
          }
@@ -61,10 +61,10 @@ public class CommandDate extends CommandBase {
             return getListOfStringsMatchingLastWord(params, "set");
          case 2:
             ArrayList<String> list = new ArrayList<String>();
-            for (int i = 0; i < CalendarAPI.getCalendarProvider().getNumberOfMonths(); i++) {
+            for (int i = 0; i < CalendarAPI.getCalendarInstance().getNumberOfMonths(); i++) {
                list.add(String.valueOf(i));
             }
-            list.addAll(Arrays.asList(CalendarAPI.getCalendarProvider().getListOfMonthsString()));
+            list.addAll(Arrays.asList(CalendarAPI.getCalendarInstance().getListOfMonthsString()));
             return list;
       }
       return null;

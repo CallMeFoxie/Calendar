@@ -52,8 +52,8 @@ public class Tools {
    }
 
    public static void listMonths(ICommandSender sender) {
-      for (int i = 0; i < CalendarAPI.getCalendarProvider().getNumberOfMonths(); i++) {
-         sender.addChatMessage(new ChatComponentText("  " + (i + 1) + ": " + CalendarAPI.getCalendarProvider().getListOfMonthsString()[i]));
+      for (int i = 0; i < CalendarAPI.getCalendarInstance().getNumberOfMonths(); i++) {
+         sender.addChatMessage(new ChatComponentText("  " + (i + 1) + ": " + CalendarAPI.getCalendarInstance().getListOfMonthsString()[i]));
       }
    }
 

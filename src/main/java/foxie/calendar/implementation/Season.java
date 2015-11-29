@@ -17,7 +17,7 @@ public class Season implements ISeason {
 
    public Season(String name) {
       this.name = name;
-      this.beginDate = CalendarAPI.getCalendarProvider(0);
+      this.beginDate = CalendarAPI.getCalendarInstance(0);
    }
 
    @Override

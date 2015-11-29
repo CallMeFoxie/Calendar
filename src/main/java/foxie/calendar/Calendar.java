@@ -5,6 +5,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.*;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.commands.CommandDate;
+import foxie.calendar.commands.CommandSeason;
 import foxie.calendar.commands.FixedCommandTime;
 import foxie.calendar.implementation.CalendarImpl;
 import foxie.calendar.implementation.SeasonProvider;
@@ -58,6 +59,9 @@ public class Calendar {
 
       if (Config.enableDateCommand)
          event.registerServerCommand(new CommandDate());
+
+      if (Config.enableSeasonCommand)
+         event.registerServerCommand(new CommandSeason());
    }
 
    @Mod.EventHandler
