@@ -55,8 +55,15 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public long getInTicks() {
-      return provider != null ? provider.getWorldTime() : worldTicks;
+   public long getTime() {
+      return provider != null ? provider.getWorldTime() + 6000 : worldTicks + 6000;
+   }
+
+   private void setTime(long newTime) {
+      if (provider == null)
+         worldTicks = newTime - 6000;
+      else
+         provider.setWorldTime(newTime - 6000);
    }
 
    @Override
@@ -76,11 +83,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (newDay >= Config.days[getMonth()] || newDay < 0)
          throw new IllegalArgumentException("There is no such day in this month!");
 
-
-      if (provider == null)
-         worldTicks += (newDay - getDay()) * TICKS_PER_DAY;
-      else
-         provider.setWorldTime(provider.getWorldTime() + (newDay - getDay()) * TICKS_PER_DAY);
+      setTime(getTime() + (newDay - getDay()) * TICKS_PER_DAY);
 
       return this;
    }
@@ -125,10 +128,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (getMonth() > newMonth)
          toDeduct *= -1;
 
-      if (provider == null)
-         worldTicks += toDeduct;
-      else
-         provider.setWorldTime(provider.getWorldTime() + toDeduct);
+      setTime(getTime() + toDeduct);
 
       return this;
    }
@@ -153,11 +153,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (newYear < 0)
          throw new IllegalArgumentException("Hour has to be in the range of 0 - 23");
 
-      if (provider == null) {
-         worldTicks += (newYear - getYear()) * getTicksPerYear();
-
-      } else
-         provider.setWorldTime(provider.getWorldTime() + (long) (newYear - getYear()) * (long) getTicksPerYear());
+      setTime(getTime() + (long) (newYear - getYear()) * (long) getTicksPerYear());
 
       return this;
    }
@@ -172,10 +168,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (newHour < 0 || newHour > 23)
          throw new IllegalArgumentException("Hour has to be in the range of 0 - 23");
 
-      if (provider == null)
-         worldTicks += (newHour - getHour()) * TICKS_PER_HOUR;
-      else
-         provider.setWorldTime(provider.getWorldTime() + (newHour - getHour()) * TICKS_PER_HOUR);
+      setTime(getTime() + (newHour - getHour()) * TICKS_PER_HOUR);
 
       return this;
    }
@@ -201,10 +194,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (newMinutes < 0 || newMinutes > 49)
          throw new IllegalArgumentException("Minutes have to be in the range of 0 - 49");
 
-      if (provider == null)
-         worldTicks += (newMinutes - getMinute()) * TICKS_PER_MINUTE;
-      else
-         provider.setWorldTime(provider.getWorldTime() + (newMinutes - getMinute()) * TICKS_PER_MINUTE);
+      setTime(getTime() + (newMinutes - getMinute()) * TICKS_PER_MINUTE);
 
       return this;
    }
@@ -243,10 +233,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (newSecond < 0 || newSecond > 19)
          throw new IllegalArgumentException("Seconds have to be in the range of 0 - 19");
 
-      if (provider == null)
-         worldTicks += (newSecond - getSecond());
-      else
-         provider.setWorldTime(provider.getWorldTime() + (newSecond - getSecond()));
+      setTime(getTime() + (newSecond - getSecond()));
 
       return this;
    }
@@ -406,7 +393,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (provider == null)
          return worldTicks;
 
-      return provider.getWorldTime();
+      return getTime();
    }
 
    @Override
@@ -414,7 +401,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       if (calendar == null)
          return 1;
 
-      return (int) (getInTicks() - calendar.getInTicks());
+      return (int) (getTime() - calendar.getTime());
    }
 
    @Override

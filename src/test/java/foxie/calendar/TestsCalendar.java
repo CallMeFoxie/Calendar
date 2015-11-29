@@ -106,7 +106,7 @@ public class TestsCalendar {
       Assert.assertEquals(getCalendar2().getMinute(), calendar.getMinute());
       Assert.assertEquals(getCalendar2().getSecond(), calendar.getSecond());
 
-      Assert.assertEquals(getCalendar2().getInTicks(), calendar.getInTicks());
+      Assert.assertEquals(getCalendar2().getTime(), calendar.getTime());
 
       CalendarImpl calendar2 = new CalendarImpl();
       calendar2.setYear(5);
@@ -114,12 +114,12 @@ public class TestsCalendar {
       calendar.addScaledMinutes(6);
       calendar.addScaledSeconds(3);
 
-      Assert.assertEquals(calendar2.getInTicks(), calendar.getInTicks());
+      Assert.assertEquals(calendar2.getTime(), calendar.getTime());
 
       calendar.addSeconds(-1);
       calendar.addMinutes(-5);
 
-      Assert.assertEquals(getCalendar2().getInTicks(), calendar.getInTicks());
+      Assert.assertEquals(getCalendar2().getTime(), calendar.getTime());
 
       calendar2 = new CalendarImpl();
       calendar2.setHour(5);

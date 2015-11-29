@@ -13,7 +13,7 @@ public interface ICalendarProvider {
 
    int getTicksPerYear();
 
-   long getInTicks();
+   long getTime();
 
    /**
     * Gets a day in a given month. Days are calculated from 0

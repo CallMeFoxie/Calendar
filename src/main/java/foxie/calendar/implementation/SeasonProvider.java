@@ -64,7 +64,7 @@ public class SeasonProvider implements ISeasonProvider {
       calendar.setYear(0);
 
       for (int i = 0; i < seasons.size() - 1; i++) {
-         if (calendar.getInTicks() >= seasons.get(i).getBeginningDate().getInTicks() && calendar.getInTicks() < seasons.get(i + 1).getBeginningDate().getInTicks())
+         if (calendar.getTime() >= seasons.get(i).getBeginningDate().getTime() && calendar.getTime() < seasons.get(i + 1).getBeginningDate().getTime())
             return seasons.get(i);
       }
 
@@ -80,7 +80,7 @@ public class SeasonProvider implements ISeasonProvider {
       calendar.setYear(0);
 
       for (int i = 0; i < seasons.size() - 1; i++) {
-         if (calendar.getInTicks() >= seasons.get(i).getBeginningDate().getInTicks() && calendar.getInTicks() < seasons.get(i + 1).getBeginningDate().getInTicks()) {
+         if (calendar.getTime() >= seasons.get(i).getBeginningDate().getTime() && calendar.getTime() < seasons.get(i + 1).getBeginningDate().getTime()) {
             beginning = seasons.get(i).getBeginningDate();
             ending = seasons.get(i + 1).getBeginningDate();
          }
@@ -89,13 +89,13 @@ public class SeasonProvider implements ISeasonProvider {
       beginning = seasons.get(seasons.size() - 1).getBeginningDate();
       ending = seasons.get(0).getBeginningDate();
 
-      if (calendar.getInTicks() < beginning.getInTicks())
+      if (calendar.getTime() < beginning.getTime())
          calendar.addYears(1);
 
-      if (ending.getInTicks() < beginning.getInTicks())
+      if (ending.getTime() < beginning.getTime())
          ending.addYears(1);
 
-      return (calendar.getInTicks() - beginning.getInTicks()) / (ending.getInTicks() - beginning.getInTicks());
+      return (calendar.getTime() - beginning.getTime()) / (ending.getTime() - beginning.getTime());
    }
 
    @Override

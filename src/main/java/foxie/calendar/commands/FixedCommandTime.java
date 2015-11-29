@@ -79,10 +79,10 @@ public class FixedCommandTime extends CommandTime {
       try {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
 
-         if (time.equals("morning")) calendar.setScaledHour(0);
-         else if (time.equals("midday")) calendar.setScaledHour(6);
-         else if (time.equals("evening")) calendar.setScaledHour(12);
-         else if (time.equals("midnight")) calendar.setScaledHour(18);
+         if (time.equals("morning")) calendar.setScaledHour(6);
+         else if (time.equals("midday")) calendar.setScaledHour(12);
+         else if (time.equals("evening")) calendar.setScaledHour(18);
+         else if (time.equals("midnight")) calendar.setScaledHour(0);
          else {
             int iTime = Integer.parseInt(time);
             ICalendarProvider c2 = CalendarAPI.getCalendarInstance(iTime);
