@@ -2,7 +2,6 @@ package foxie.calendar.commands;
 
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
-import foxie.calendar.implementation.CalendarImpl;
 import net.minecraft.command.CommandTime;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -43,6 +42,11 @@ public class FixedCommandTime extends CommandTime {
       }
 
       try {
+         if (params.length == 3 && params[0].equals("set")) {
+            processCommandSet(world, params[1], params[2]);
+            return;
+         }
+
          if (params[0].equals("add")) processCommandAdd(world, params[1]);
          else if (params[0].equals("set")) processCommandSet(world, params[1]);
          else throw new WrongUsageException("commands.fixedtime.usage");
@@ -60,17 +64,28 @@ public class FixedCommandTime extends CommandTime {
       }
    }
 
+   private void processCommandSet(World world, String hours, String minutes) {
+      try {
+         ICalendarProvider calendarProvider = CalendarAPI.getCalendarInstance(world);
+         ICalendarProvider newTime = CalendarAPI.getCalendarInstance().setScaledHour(Integer.parseInt(hours)).setScaledMinute(Integer.parseInt(minutes));
+         calendarProvider.setHour(newTime.getHour());
+         calendarProvider.setMinute(newTime.getMinute());
+      } catch (Exception e) {
+         throw new WrongUsageException("commands.fixedtime.usage");
+      }
+   }
+
    private void processCommandSet(World world, String time) {
       try {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
 
-         if (time.equals("morning")) calendar.setHour(0);
-         else if (time.equals("midday")) calendar.setHour(6);
-         else if (time.equals("evening")) calendar.setHour(12);
-         else if (time.equals("midnight")) calendar.setHour(18);
+         if (time.equals("morning")) calendar.setScaledHour(0);
+         else if (time.equals("midday")) calendar.setScaledHour(6);
+         else if (time.equals("evening")) calendar.setScaledHour(12);
+         else if (time.equals("midnight")) calendar.setScaledHour(18);
          else {
             int iTime = Integer.parseInt(time);
-            CalendarImpl c2 = new CalendarImpl(iTime);
+            ICalendarProvider c2 = CalendarAPI.getCalendarInstance(iTime);
             calendar.setHour(c2.getHour());
             calendar.setMinute(c2.getMinute());
             calendar.setSecond(c2.getSecond());

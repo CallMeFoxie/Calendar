@@ -180,6 +180,16 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       return this;
    }
 
+   @Override
+   public int getScaledHour() {
+      return getHour();
+   }
+
+   @Override
+   public ICalendarProvider setScaledHour(int newHour) {
+      return setHour(newHour);
+   }
+
 
    @Override
    public int getMinute() {

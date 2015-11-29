@@ -59,6 +59,10 @@ public interface ICalendarProvider {
 
    ICalendarProvider setHour(int newHour);
 
+   int getScaledHour();
+
+   ICalendarProvider setScaledHour(int newHour);
+
    /**
     * Calculates current minute. Note that there are 50 minutes, but it is rescaled to 60 minutes per hour!
     *
