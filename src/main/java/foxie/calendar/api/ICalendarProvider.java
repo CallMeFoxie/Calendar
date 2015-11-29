@@ -11,21 +11,48 @@ public interface ICalendarProvider {
     */
    int getDaysInYear();
 
+   /**
+    * Gets total sum of ticks that happen in a year
+    *
+    * @return ticks in a year
+    */
    int getTicksPerYear();
 
+   /**
+    * Gets current UNSCALED world time (in ticks)
+    *
+    * @return world time
+    */
    long getTime();
 
    /**
-    * Gets a day in a given month. Days are calculated from 0
+    * Gets a day in a given month. Unscaled
     *
     * @return day of the month
     */
    int getDay();
 
+   /**
+    * Sets a day in a given month. Unscaled
+    *
+    * @param newDay new date
+    * @return self
+    */
    ICalendarProvider setDay(int newDay);
 
+   /**
+    * Gets a scaled day in a given month.
+    *
+    * @return scaled day of the month
+    */
    int getScaledDay();
 
+   /**
+    * Sets a scaled day in a given month.
+    *
+    * @param newDay new day
+    * @return self
+    */
    ICalendarProvider setScaledDay(int newDay);
 
    /**

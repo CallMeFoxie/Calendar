@@ -20,24 +20,36 @@ public class DateTimeEvent extends Event {
       return provider;
    }
 
+   /**
+    * New day event - fired when a day changes over (by internal time, NOT scaled time!)
+    */
    public static class NewDayEvent extends DateTimeEvent {
       public NewDayEvent(World world, ICalendarProvider provider) {
          super(world, provider);
       }
    }
 
+   /**
+    * New month event - fired when a day changes over (by internal time, NOT scaled time!)
+    */
    public static class NewMonthEvent extends DateTimeEvent {
       public NewMonthEvent(World world, ICalendarProvider provider) {
          super(world, provider);
       }
    }
 
+   /**
+    * New year event - fired when a year changes over (by internal time, NOT scaled time!)
+    */
    public static class NewYearEvent extends DateTimeEvent {
       public NewYearEvent(World world, ICalendarProvider provider) {
          super(world, provider);
       }
    }
 
+   /**
+    * New season event - fired when a season changes over (by internal time, NOT scaled time!)
+    */
    public static class NewSeasonEvent extends DateTimeEvent {
       private ISeason season;
 

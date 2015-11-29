@@ -84,7 +84,7 @@ public class FixedCommandTime extends CommandTime {
          else if (time.equals("evening")) calendar.setScaledHour(18);
          else if (time.equals("midnight")) calendar.setScaledHour(0);
          else {
-            int iTime = Integer.parseInt(time);
+            long iTime = Long.parseLong(time);
             ICalendarProvider c2 = CalendarAPI.getCalendarInstance(iTime);
             calendar.setHour(c2.getHour());
             calendar.setMinute(c2.getMinute());

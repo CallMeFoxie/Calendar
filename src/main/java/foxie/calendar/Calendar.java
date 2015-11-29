@@ -34,8 +34,8 @@ public class Calendar {
       config = new Config(event.getSuggestedConfigurationFile());
 
       // register default providers
-      CalendarAPI.registerCalendarProvider(new CalendarImpl(0));
-      CalendarAPI.registerSeasonProvider(new SeasonProvider());
+      CalendarAPI.registerCalendarProvider(0, new CalendarImpl(0));
+      CalendarAPI.registerSeasonProvider(0, new SeasonProvider());
 
       events.preinit();
    }
