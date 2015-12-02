@@ -22,10 +22,10 @@ public class SeasonProvider implements ISeasonProvider {
 
       // init with default values
       seasons = new ArrayList<ISeason>();
-      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11)));
-      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5)));
-      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2)));
-      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8)));
+      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11), 270, 240, 260));
+      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5), 285, 303, 295));
+      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2), 260, 280, 285));
+      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8), 295, 280, 270));
 
       // now actually read them from the config
       Configuration cfg = Calendar.INSTANCE.getConfig().getConfig();
