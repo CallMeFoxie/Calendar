@@ -12,6 +12,8 @@ public class Config {
    public static String[] months = new String[]{"January", "February", "March", "April",
            "May", "June", "July", "August", "September", "October", "November", "December"};
 
+   public static long yOffsetOfMidTemp = 11000;
+
    public static boolean enableFixedTimeCommand = true;
    public static boolean enableDateCommand      = true;
    public static boolean enableSeasonCommand    = true;

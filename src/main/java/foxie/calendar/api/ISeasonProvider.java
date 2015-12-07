@@ -1,5 +1,7 @@
 package foxie.calendar.api;
 
+import net.minecraft.world.World;
+
 public interface ISeasonProvider {
    /**
     * Gets a season for a given month
@@ -23,4 +25,15 @@ public interface ISeasonProvider {
     * @return seasons
     */
    ISeason[] getAllSeasons();
+
+   /**
+    * Get temperature
+    *
+    * @param world world instance
+    * @param x     xCoord
+    * @param y     yCoord
+    * @param z     zCoord
+    * @return temperature in Kelvines
+    */
+   int getTemperature(World world, int x, int y, int z);
 }

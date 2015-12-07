@@ -5,6 +5,7 @@ import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
 import foxie.calendar.api.ISeason;
 import foxie.calendar.api.ISeasonProvider;
+import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.ArrayList;
@@ -101,5 +102,12 @@ public class SeasonProvider implements ISeasonProvider {
    @Override
    public ISeason[] getAllSeasons() {
       return seasons.toArray(new ISeason[seasons.size()]);
+   }
+
+   @Override
+   public int getTemperature(World world, int x, int y, int z) {
+      // presume that equator = z 0
+      // TODO
+      return 0;
    }
 }
