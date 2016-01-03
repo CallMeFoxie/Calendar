@@ -7,7 +7,9 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -28,7 +30,7 @@ public class FixedCommandTime extends CommandTime {
       }
 
       if (params.length < 2) {
-         throw new WrongUsageException("commands.fixedtime.usage");
+         sender.addChatMessage(new ChatComponentTranslation("commands.fixedtime.usage"));
       }
 
       World world = null;
@@ -51,11 +53,11 @@ public class FixedCommandTime extends CommandTime {
          else if (params[0].equals("set")) processCommandSet(world, params[1]);
          else throw new WrongUsageException("commands.fixedtime.usage");
       } catch (Exception e) {
-         throw new WrongUsageException("commands.fixedtime.usage");
+         sender.addChatMessage(new ChatComponentTranslation("commands.fixedtime.usage"));
       }
    }
 
-   private void processCommandAdd(World world, String time) {
+   private void processCommandAdd(World world, String time) throws WrongUsageException {
       try {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
          calendar.addSeconds(Integer.parseInt(time));
@@ -64,7 +66,7 @@ public class FixedCommandTime extends CommandTime {
       }
    }
 
-   private void processCommandSet(World world, String hours, String minutes) {
+   private void processCommandSet(World world, String hours, String minutes) throws WrongUsageException {
       try {
          ICalendarProvider calendarProvider = CalendarAPI.getCalendarInstance(world);
          ICalendarProvider newTime = CalendarAPI.getCalendarInstance().setScaledHour(Integer.parseInt(hours)).setScaledMinute(Integer.parseInt(minutes));
@@ -75,7 +77,7 @@ public class FixedCommandTime extends CommandTime {
       }
    }
 
-   private void processCommandSet(World world, String time) {
+   private void processCommandSet(World world, String time) throws WrongUsageException {
       try {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
 
@@ -97,7 +99,7 @@ public class FixedCommandTime extends CommandTime {
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params) {
+   public List addTabCompletionOptions(ICommandSender sender, String[] params, BlockPos pos) {
       return params.length == 1 ?
               getListOfStringsMatchingLastWord(params, "set", "add") :
               params.length == 2 && params[0].equals("set") ?

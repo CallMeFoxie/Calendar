@@ -1,7 +1,8 @@
 package foxie.calendar.api;
 
-import cpw.mods.fml.common.eventhandler.Event;
+
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 public class DateTimeEvent extends Event {
    private World             world;

@@ -6,6 +6,7 @@ import foxie.calendar.api.ICalendarProvider;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 
@@ -47,14 +48,14 @@ public class CommandDate extends CommandBase {
             Tools.sendCurrentDateTime(sender, calendar);
          }
       } catch (IllegalArgumentException e) {
-         throw new WrongUsageException("commands.date.nosuchday");
+         sender.addChatMessage(new ChatComponentTranslation("commands.date.nosuchday"));
       } catch (Exception e) {
-         throw new WrongUsageException("commands.date.usage");
+         sender.addChatMessage(new ChatComponentTranslation("commands.date.usage"));
       }
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params) {
+   public List addTabCompletionOptions(ICommandSender sender, String[] params, BlockPos pos) {
       // TODO named months API
       switch (params.length) {
          case 0:

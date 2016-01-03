@@ -1,8 +1,5 @@
 package foxie.calendar;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.*;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.commands.CommandDate;
 import foxie.calendar.commands.CommandSeason;
@@ -10,6 +7,9 @@ import foxie.calendar.commands.FixedCommandTime;
 import foxie.calendar.implementation.CalendarImpl;
 import foxie.calendar.implementation.SeasonProvider;
 import foxie.calendar.proxy.ProxyCommon;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.*;
 
 @Mod(modid = Calendar.MODID, name = Calendar.NAME, version = Calendar.VERSION)
 public class Calendar {
