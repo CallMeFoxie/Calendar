@@ -55,16 +55,16 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public long getTime() {
-      return worldTicks - 6000;
+      return worldTicks + 6000;
    }
 
    private void setTime(long newTime) {
-      worldTicks = newTime + 6000;
+      worldTicks = newTime - 6000;
    }
 
    @Override
    public int getDay() {
-      int relativeDays = (int) ((getWorldTicks() / 24000) % getDaysInYear());
+      int relativeDays = (int) ((getTime() / 24000) % getDaysInYear());
       int month = getMonth(relativeDays);
 
       for (int i = 0; i < month; i++) {
@@ -96,7 +96,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public int getMonth() {
-      return getMonth((int) ((getWorldTicks() / 24000) % getDaysInYear()));
+      return getMonth((int) ((getTime() / 24000) % getDaysInYear()));
    }
 
    @Override
@@ -141,7 +141,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public int getYear() {
-      return (int) (getWorldTicks() / (getDaysInYear() * 24000));
+      return (int) (getTime() / (getDaysInYear() * 24000));
    }
 
    @Override
@@ -209,7 +209,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public int getScaledSecond() {
-      return (int) (getWorldTicks() % 20 * 3);
+      return (int) (getTime() % 20 * 3);
    }
 
    @Override
@@ -221,7 +221,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public int getSecond() {
-      return (int) (getWorldTicks() % 20);
+      return (int) (getTime() % 20);
    }
 
    @Override
@@ -371,7 +371,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    private long getTodaysTicks() {
-      return getWorldTicks() % 24000;
+      return getTime() % 24000;
    }
 
    private int getMonth(int relativeDate) {
@@ -404,6 +404,6 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public void apply(World world) {
-      world.provider.setWorldTime(getTime());
+      world.provider.setWorldTime(worldTicks);
    }
 }
