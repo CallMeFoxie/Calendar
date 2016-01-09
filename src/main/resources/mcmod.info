@@ -1,8 +1,8 @@
 [
 {
-  "modid": "foxielib",
-  "name": "FoxieLib",
-  "description": "Support library for all of CallMeFoxie's mods",
+  "modid": "calendarapi",
+  "name": "CalendarAPI",
+  "description": "Support library for working with dates and time in Minecraft with an API for everybody",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
