@@ -148,4 +148,6 @@ public interface ICalendarProvider {
    String[] getListOfMonthsString();
 
    ICalendarProvider copy();
+
+   void apply(World world);
 }
