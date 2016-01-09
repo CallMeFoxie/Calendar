@@ -46,6 +46,7 @@ public class CommandDate extends CommandBase {
             if (args.length > 2) calendar.setScaledMonth(Integer.parseInt(args[2]));
             if (args.length > 3) calendar.setYear(Integer.parseInt(args[3]));
             Tools.sendCurrentDateTime(sender, calendar);
+            calendar.apply(sender.getEntityWorld());
          }
       } catch (IllegalArgumentException e) {
          sender.addChatMessage(new ChatComponentTranslation("commands.date.nosuchday"));

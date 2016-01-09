@@ -61,6 +61,7 @@ public class FixedCommandTime extends CommandTime {
       try {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
          calendar.addSeconds(Integer.parseInt(time));
+         calendar.apply(world);
       } catch (Exception exception) {
          throw new WrongUsageException("commands.fixedtime.usage");
       }
@@ -72,6 +73,7 @@ public class FixedCommandTime extends CommandTime {
          ICalendarProvider newTime = CalendarAPI.getCalendarInstance().setScaledHour(Integer.parseInt(hours)).setScaledMinute(Integer.parseInt(minutes));
          calendarProvider.setHour(newTime.getHour());
          calendarProvider.setMinute(newTime.getMinute());
+         calendarProvider.apply(world);
       } catch (Exception e) {
          throw new WrongUsageException("commands.fixedtime.usage");
       }
@@ -91,6 +93,7 @@ public class FixedCommandTime extends CommandTime {
             calendar.setHour(c2.getHour());
             calendar.setMinute(c2.getMinute());
             calendar.setSecond(c2.getSecond());
+            calendar.apply(world);
          }
 
       } catch (Exception e) {
