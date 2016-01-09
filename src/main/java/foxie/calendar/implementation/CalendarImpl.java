@@ -11,15 +11,14 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    public static final int TICKS_PER_HOUR   = TICKS_PER_MINUTE * 50;
    public static final int TICKS_PER_DAY    = TICKS_PER_HOUR * 24;
 
-   private WorldProvider provider;
-   private long          worldTicks;
+   private long worldTicks;
 
    public CalendarImpl(World world) {
       this(world.provider);
    }
 
    public CalendarImpl(WorldProvider provider) {
-      this.provider = provider;
+      this(provider.getWorldTime());
    }
 
    public CalendarImpl(long worldTicks) {
@@ -56,14 +55,11 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
 
    @Override
    public long getTime() {
-      return provider != null ? provider.getWorldTime() + 6000 : worldTicks + 6000;
+      return worldTicks - 6000;
    }
 
    private void setTime(long newTime) {
-      if (provider == null)
-         worldTicks = newTime - 6000;
-      else
-         provider.setWorldTime(newTime - 6000);
+      worldTicks = newTime + 6000;
    }
 
    @Override
@@ -390,10 +386,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    private long getWorldTicks() {
-      if (provider == null)
-         return worldTicks;
-
-      return getTime();
+      return worldTicks;
    }
 
    @Override
@@ -407,5 +400,10 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    @Override
    public ICalendarProvider copy() {
       return new CalendarImpl(getWorldTicks());
+   }
+
+   @Override
+   public void apply(World world) {
+      world.provider.setWorldTime(getTime());
    }
 }
