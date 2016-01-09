@@ -69,7 +69,7 @@ public class TestsCalendar {
 
    @Test
    public void testHour() {
-      Assert.assertEquals("Invalid starting hour", 0, getStartingCalendar().getHour());
+      Assert.assertEquals("Invalid starting hour", 6, getStartingCalendar().getHour());
       Assert.assertEquals("Invalid hour", 19, getCalendar().getHour());
       Assert.assertEquals("Invalid hour", 23, getCalendar2().getHour());
    }
@@ -93,9 +93,9 @@ public class TestsCalendar {
       resetDays();
       CalendarImpl calendar = new CalendarImpl();
       calendar.setYear(4);
-      calendar.setScaledMonth(10);
-      calendar.setScaledDay(10);
-      calendar.setScaledHour(22);
+      calendar.setScaledMonth(12);
+      calendar.setScaledDay(12);
+      calendar.setScaledHour(23);
       calendar.setScaledMinute(59);
       calendar.setScaledSecond(57);
 
@@ -111,14 +111,15 @@ public class TestsCalendar {
 
       CalendarImpl calendar2 = new CalendarImpl();
       calendar2.setYear(5);
-      calendar2.setMinute(5);
-      calendar.addScaledMinutes(6);
+      calendar2.setScaledMinute(5);
+      calendar2.setScaledHour(0);
+      calendar.addScaledMinutes(5);
       calendar.addScaledSeconds(3);
 
       Assert.assertEquals(calendar2.getTime(), calendar.getTime());
 
-      calendar.addSeconds(-1);
-      calendar.addMinutes(-5);
+      calendar.addScaledSeconds(-3);
+      calendar.addScaledMinutes(-5);
 
       Assert.assertEquals(getCalendar2().getTime(), calendar.getTime());
 
