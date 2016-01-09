@@ -21,7 +21,7 @@ public class TestsCalendar {
       // 33 seconds re-scaled = 11
       // ========== 9229471
 
-      return new CalendarImpl(9235471);
+      return new CalendarImpl(9235471 - 6000);
    }
 
    private static CalendarImpl getCalendar2() {
@@ -29,17 +29,18 @@ public class TestsCalendar {
 
       // maths:
       // let's say it is December 12 4, 23:49:57 (unscaled minutes)
-      // year 2: 133 days in a year * 24000 * 4 (year) = 12768000
-      // December 1st: 121 days, November 12th: 132 days. 132 * 24000 = 3168000 ticks
+      // year 4: 133 days in a year * 24000 * 4 (year) = 12768000
+      // December 1st: 121 days, December 12th: 132 days. 132 * 24000 = 3168000 ticks
       // 19 hours: 1000 * 23 = 23000
       // 49 minutes unscaled = 20 * 49 = 980
       // 57 seconds re-scaled = 19
       // ========== 15953999
 
-      return new CalendarImpl(15959999);
+      return new CalendarImpl(15959999 - 6000);
    }
 
    private static CalendarImpl getStartingCalendar() {
+      resetDays();
       return new CalendarImpl(0);
    }
 
@@ -92,9 +93,9 @@ public class TestsCalendar {
       resetDays();
       CalendarImpl calendar = new CalendarImpl();
       calendar.setYear(4);
-      calendar.setMonth(11);
-      calendar.setDay(11);
-      calendar.setHour(23);
+      calendar.setScaledMonth(10);
+      calendar.setScaledDay(10);
+      calendar.setScaledHour(22);
       calendar.setScaledMinute(59);
       calendar.setScaledSecond(57);
 
