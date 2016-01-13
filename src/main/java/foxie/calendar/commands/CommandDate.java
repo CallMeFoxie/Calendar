@@ -6,7 +6,6 @@ import foxie.calendar.api.ICalendarProvider;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 
@@ -56,7 +55,7 @@ public class CommandDate extends CommandBase {
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params, BlockPos pos) {
+   public List addTabCompletionOptions(ICommandSender sender, String[] params) {
       // TODO named months API
       switch (params.length) {
          case 0:

@@ -7,7 +7,6 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.world.World;
@@ -102,7 +101,7 @@ public class FixedCommandTime extends CommandTime {
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params, BlockPos pos) {
+   public List addTabCompletionOptions(ICommandSender sender, String[] params) {
       return params.length == 1 ?
               getListOfStringsMatchingLastWord(params, "set", "add") :
               params.length == 2 && params[0].equals("set") ?

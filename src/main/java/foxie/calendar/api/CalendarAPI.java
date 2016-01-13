@@ -1,9 +1,9 @@
 package foxie.calendar.api;
 
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Loader;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
-import net.minecraftforge.fml.common.FMLLog;
-import net.minecraftforge.fml.common.Loader;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -90,8 +90,8 @@ public class CalendarAPI {
     * @return calendar
     */
    public static ICalendarProvider getCalendarInstance(World world) {
-      if (calendarProviders.containsKey(world.provider.getDimensionId()))
-         return calendarProviders.get(world.provider.getDimensionId()).create(world);
+      if (calendarProviders.containsKey(world.provider.dimensionId))
+         return calendarProviders.get(world.provider.dimensionId).create(world);
 
       return calendarProviders.get(0).create(world);
    }
@@ -103,8 +103,8 @@ public class CalendarAPI {
     * @return calendar
     */
    public static ICalendarProvider getCalendarInstance(WorldProvider provider) {
-      if (calendarProviders.containsKey(provider.getDimensionId()))
-         return calendarProviders.get(provider.getDimensionId()).create(provider);
+      if (calendarProviders.containsKey(provider.dimensionId))
+         return calendarProviders.get(provider.dimensionId).create(provider);
 
       return calendarProviders.get(0).create(provider);
    }

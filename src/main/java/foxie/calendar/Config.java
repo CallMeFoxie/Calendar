@@ -1,8 +1,8 @@
 package foxie.calendar;
 
 
+import cpw.mods.fml.common.FMLLog;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.common.FMLLog;
 
 import java.io.File;
 import java.util.Arrays;

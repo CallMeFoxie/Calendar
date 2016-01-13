@@ -2,4 +2,4 @@
 
 package foxie.calendar.api;
 
-import net.minecraftforge.fml.common.API;
+import cpw.mods.fml.common.API;
