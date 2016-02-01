@@ -2,9 +2,13 @@ package foxie.calendar.implementation;
 
 
 import foxie.calendar.Config;
+import foxie.calendar.api.DayTimeDescriptor;
 import foxie.calendar.api.ICalendarProvider;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider {
    public static final int TICKS_PER_MINUTE = 20;
@@ -39,12 +43,22 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
+   public double getDaysInMonth(int month, int year) {
+      return getDaysInMonth(month);
+   }
+
+   @Override
    public int getDaysInYear() {
       int sum = 0;
       for (int days : Config.days)
          sum += days;
 
       return sum;
+   }
+
+   @Override
+   public double getDaysInYear(int year) {
+      return getDaysInYear();
    }
 
    @Override
@@ -405,5 +419,29 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    @Override
    public void apply(World world) {
       world.provider.setWorldTime(worldTicks);
+   }
+
+   @Override
+   public List<DayTimeDescriptor> getDayTimeDescriptors(int tolerance) {
+      List<DayTimeDescriptor> list = new ArrayList<DayTimeDescriptor>();
+      ICalendarProvider bottomTolerance = copy().addSeconds(-tolerance);
+      ICalendarProvider topTolerance = copy().addSeconds(tolerance);
+      // TODO
+
+      // MIDNIGHT
+
+      // MIDDAY
+
+      // MORNING
+
+      // AFTERNOON
+
+      // EVENING
+
+      // DAWN
+
+      // DUSK
+
+      return list;
    }
 }
