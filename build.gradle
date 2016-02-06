@@ -38,9 +38,8 @@ archivesBaseName = "Calendar"
 minecraft {
     version = config.minecraft_version + "-" + config.forge_version
     runDir = "run"
-    replace '@VERSION@', "${config.mod_version}"
     mappings = config.mappings
-    replaceIn "reference/Reference.java"
+    replaceIn "foxie/calendar/Calendar.java"
     replace "@VERSION@", "${config.mod_version}"
 }
 
