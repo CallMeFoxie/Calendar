@@ -34,7 +34,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public int getDaysInMonth(int month) {
+   public double getDaysInMonth(int month) {
       if (month >= Config.days.length || month < 0) {
          throw new IllegalArgumentException("Invalid month!");
       }
@@ -43,12 +43,12 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public double getDaysInMonth(int month, int year) {
-      return getDaysInMonth(month);
+   public int getDaysInMonth(int month, int year) {
+      return (int) getDaysInMonth(month);
    }
 
    @Override
-   public int getDaysInYear() {
+   public double getDaysInYear() {
       int sum = 0;
       for (int days : Config.days)
          sum += days;
@@ -57,13 +57,18 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public double getDaysInYear(int year) {
-      return getDaysInYear();
+   public int getDaysInYear(int year) {
+      return (int) getDaysInYear();
    }
 
    @Override
-   public int getTicksPerYear() {
-      int daysInYear = getDaysInYear();
+   public long getTicksPerYear(int year) {
+      return (long) getTicksPerYear();
+   }
+
+   @Override
+   public double getTicksPerYear() {
+      double daysInYear = getDaysInYear();
       return daysInYear * TICKS_PER_DAY;
    }
 
