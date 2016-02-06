@@ -46,7 +46,7 @@ public class TestsCalendar {
 
    @Test
    public void testYear() {
-      Assert.assertEquals("Bad count of days per year", 133, getStartingCalendar().getDaysInYear());
+      Assert.assertEquals("Bad count of days per year", 133, (int)getStartingCalendar().getDaysInYear());
 
       Assert.assertEquals("Invalid starting year", 0, getStartingCalendar().getYear());
       Assert.assertEquals("Invalid year", 2, getCalendar().getYear());
