@@ -3,20 +3,32 @@ package foxie.calendar.api;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 
+import java.util.List;
+
 public interface ICalendarProvider {
    /**
     * Gets total sum of days in a year
     *
     * @return days in a year
     */
-   int getDaysInYear();
+   double getDaysInYear();
+
+   /**
+    * Year sensitive version of getDaysInYear which can work with leap years etc
+    *
+    * @param year year
+    * @return days in a year
+    */
+   int getDaysInYear(int year);
 
    /**
     * Gets total sum of ticks that happen in a year
     *
     * @return ticks in a year
     */
-   int getTicksPerYear();
+   long getTicksPerYear(int year);
+
+   double getTicksPerYear();
 
    /**
     * Gets current UNSCALED world time (in ticks)
@@ -132,7 +144,9 @@ public interface ICalendarProvider {
 
    ICalendarProvider addYears(int years);
 
-   int getDaysInMonth(int month);
+   double getDaysInMonth(int month);
+
+   int getDaysInMonth(int month, int year);
 
    /*
     * These are used to create a new instance of these calendars
@@ -143,11 +157,29 @@ public interface ICalendarProvider {
 
    ICalendarProvider create(long time);
 
+   /**
+    * @return number of months in a year
+    */
    int getNumberOfMonths();
 
+   /**
+    * @return an UNLOCALIZED list of months in a year
+    */
    String[] getListOfMonthsString();
 
+   /**
+    * @return copy of self
+    */
    ICalendarProvider copy();
 
+   /**
+    * @param world applies this calendar time onto a world
+    */
    void apply(World world);
+
+   /**
+    * @param tolerance Time tolerance for those descriptors. In ticks.
+    * @return array of descriptors that apply to current time
+    */
+   List<DayTimeDescriptor> getDayTimeDescriptors(int tolerance);
 }

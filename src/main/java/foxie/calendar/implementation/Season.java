@@ -58,7 +58,7 @@ public class Season implements ISeason {
 
    public void getConfig(Configuration cfg) {
       cfg.getInt(name + "_month_begin", "seasons", getBeginningDate().getMonth(), 0, getBeginningDate().getNumberOfMonths(), "Beginning month for " + name);
-      cfg.getInt(name + "_day_begin", "seasons", getBeginningDate().getDay(), 0, getBeginningDate().getDaysInMonth(getBeginningDate().getMonth()), "Beginning day for " + name);
+      cfg.getInt(name + "_day_begin", "seasons", getBeginningDate().getDay(), 0, (int)getBeginningDate().getDaysInMonth(getBeginningDate().getMonth()), "Beginning day for " + name);
       cfg.getInt(name + "_begin_temp", "seasons", beginTemp, 0, 1000, "Starting temperature of the season (K)");
       cfg.getInt(name + "_mid_temp", "seasons", midTemp, 0, 1000, "Temperature in the middle of the season (K)");
       cfg.getInt(name + "_end_temp", "seasons", endTemp, 0, 1000, "Temperature at the end of the season (K)");

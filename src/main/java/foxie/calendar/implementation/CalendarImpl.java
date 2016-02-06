@@ -2,9 +2,13 @@ package foxie.calendar.implementation;
 
 
 import foxie.calendar.Config;
+import foxie.calendar.api.DayTimeDescriptor;
 import foxie.calendar.api.ICalendarProvider;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider {
    public static final int TICKS_PER_MINUTE = 20;
@@ -30,7 +34,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public int getDaysInMonth(int month) {
+   public double getDaysInMonth(int month) {
       if (month >= Config.days.length || month < 0) {
          throw new IllegalArgumentException("Invalid month!");
       }
@@ -39,7 +43,12 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public int getDaysInYear() {
+   public int getDaysInMonth(int month, int year) {
+      return (int) getDaysInMonth(month);
+   }
+
+   @Override
+   public double getDaysInYear() {
       int sum = 0;
       for (int days : Config.days)
          sum += days;
@@ -48,8 +57,18 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public int getTicksPerYear() {
-      int daysInYear = getDaysInYear();
+   public int getDaysInYear(int year) {
+      return (int) getDaysInYear();
+   }
+
+   @Override
+   public long getTicksPerYear(int year) {
+      return (long) getTicksPerYear();
+   }
+
+   @Override
+   public double getTicksPerYear() {
+      double daysInYear = getDaysInYear();
       return daysInYear * TICKS_PER_DAY;
    }
 
@@ -405,5 +424,29 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    @Override
    public void apply(World world) {
       world.provider.setWorldTime(worldTicks);
+   }
+
+   @Override
+   public List<DayTimeDescriptor> getDayTimeDescriptors(int tolerance) {
+      List<DayTimeDescriptor> list = new ArrayList<DayTimeDescriptor>();
+      ICalendarProvider bottomTolerance = copy().addSeconds(-tolerance);
+      ICalendarProvider topTolerance = copy().addSeconds(tolerance);
+      // TODO
+
+      // MIDNIGHT
+
+      // MIDDAY
+
+      // MORNING
+
+      // AFTERNOON
+
+      // EVENING
+
+      // DAWN
+
+      // DUSK
+
+      return list;
    }
 }
