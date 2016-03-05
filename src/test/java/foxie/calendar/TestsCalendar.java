@@ -76,16 +76,16 @@ public class TestsCalendar {
 
    @Test
    public void testMinute() {
-      Assert.assertEquals("Invalid starting minute", 0, getStartingCalendar().getScaledMinute());
-      Assert.assertEquals("Invalid minute", 28, getCalendar().getScaledMinute());
-      Assert.assertEquals("Invalid minute", 59, getCalendar2().getScaledMinute());
+      Assert.assertEquals("Invalid starting minute", 0, getStartingCalendar().getMinute());
+      Assert.assertEquals("Invalid minute", 23, getCalendar().getMinute());
+      Assert.assertEquals("Invalid minute", 49, getCalendar2().getMinute());
    }
 
    @Test
    public void testSecond() {
-      Assert.assertEquals("Invalid starting second", 0, getStartingCalendar().getScaledSecond());
-      Assert.assertEquals("Invalid second", 33, getCalendar().getScaledSecond());
-      Assert.assertEquals("Invalid second", 57, getCalendar2().getScaledSecond());
+      Assert.assertEquals("Invalid starting second", 0, getStartingCalendar().getSecond());
+      Assert.assertEquals("Invalid second", 11, getCalendar().getSecond());
+      Assert.assertEquals("Invalid second", 19, getCalendar2().getSecond());
    }
 
    @Test
@@ -93,11 +93,11 @@ public class TestsCalendar {
       resetDays();
       CalendarImpl calendar = new CalendarImpl();
       calendar.setYear(4);
-      calendar.setScaledMonth(12);
-      calendar.setScaledDay(12);
-      calendar.setScaledHour(23);
-      calendar.setScaledMinute(59);
-      calendar.setScaledSecond(57);
+      calendar.setMonth(11);
+      calendar.setDay(11);
+      calendar.setHour(23);
+      calendar.setMinute(49);
+      calendar.setSecond(19);
 
 
       Assert.assertEquals(getCalendar2().getYear(), calendar.getYear());
@@ -111,15 +111,15 @@ public class TestsCalendar {
 
       CalendarImpl calendar2 = new CalendarImpl();
       calendar2.setYear(5);
-      calendar2.setScaledMinute(5);
-      calendar2.setScaledHour(0);
-      calendar.addScaledMinutes(5);
-      calendar.addScaledSeconds(3);
+      calendar2.setMinute(5);
+      calendar2.setHour(0);
+      calendar.addMinutes(5);
+      calendar.addSeconds(1);
 
       Assert.assertEquals(calendar2.getTime(), calendar.getTime());
 
-      calendar.addScaledSeconds(-3);
-      calendar.addScaledMinutes(-5);
+      calendar.addSeconds(-1);
+      calendar.addMinutes(-5);
 
       Assert.assertEquals(getCalendar2().getTime(), calendar.getTime());
 

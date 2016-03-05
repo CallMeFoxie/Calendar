@@ -36,7 +36,7 @@ public class CommandSeason extends CommandBase {
             ISeason[] seasons = CalendarAPI.getSeasonProvider().getAllSeasons();
             sender.addChatMessage(new ChatComponentTranslation("commands.season.listing"));
             for (ISeason season : seasons) {
-               sender.addChatMessage(new ChatComponentText("  " + season.getName() + ", " + season.getBeginningDate().getScaledDay() + ". " + season.getBeginningDate().getScaledMonth()));
+               sender.addChatMessage(new ChatComponentText("  " + season.getName() + ", " + season.getBeginningDate().getDay() + ". " + season.getBeginningDate().getMonth()));
             }
          }
       }

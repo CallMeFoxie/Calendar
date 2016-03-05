@@ -47,8 +47,8 @@ public class Tools {
    }
 
    public static void sendCurrentDateTime(ICommandSender sender, ICalendarProvider calendar) {
-      sender.addChatMessage(new ChatComponentText("It is " + (calendar.getScaledDay()) + ". " + (calendar.getScaledMonth()) + ". " + calendar.getYear()
-              + ", " + calendar.getScaledHour() + ":" + calendar.getScaledMinute()));
+      sender.addChatMessage(new ChatComponentText("It is " + (calendar.getDay()) + ". " + (calendar.getMonth()) + ". " + calendar.getYear()
+              + ", " + calendar.getHour() + ":" + calendar.getMinute()));
    }
 
    public static void listMonths(ICommandSender sender) {
