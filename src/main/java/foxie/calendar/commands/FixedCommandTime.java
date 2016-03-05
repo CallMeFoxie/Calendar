@@ -69,7 +69,7 @@ public class FixedCommandTime extends CommandTime {
    private void processCommandSet(World world, String hours, String minutes) throws WrongUsageException {
       try {
          ICalendarProvider calendarProvider = CalendarAPI.getCalendarInstance(world);
-         ICalendarProvider newTime = CalendarAPI.getCalendarInstance().setScaledHour(Integer.parseInt(hours)).setScaledMinute(Integer.parseInt(minutes));
+         ICalendarProvider newTime = CalendarAPI.getCalendarInstance().setHour(Integer.parseInt(hours)).setMinute(Integer.parseInt(minutes));
          calendarProvider.setHour(newTime.getHour());
          calendarProvider.setMinute(newTime.getMinute());
          calendarProvider.apply(world);
@@ -82,18 +82,18 @@ public class FixedCommandTime extends CommandTime {
       try {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(world);
 
-         if (time.equals("morning")) calendar.setScaledHour(6);
-         else if (time.equals("midday")) calendar.setScaledHour(12);
-         else if (time.equals("evening")) calendar.setScaledHour(18);
-         else if (time.equals("midnight")) calendar.setScaledHour(0);
+         if (time.equals("morning")) calendar.setHour(6).setMinute(0);
+         else if (time.equals("midday")) calendar.setHour(12).setMinute(0);
+         else if (time.equals("evening")) calendar.setHour(18).setMinute(0);
+         else if (time.equals("midnight")) calendar.setHour(0).setMinute(0);
          else {
             long iTime = Long.parseLong(time);
             ICalendarProvider c2 = CalendarAPI.getCalendarInstance(iTime);
             calendar.setHour(c2.getHour());
             calendar.setMinute(c2.getMinute());
             calendar.setSecond(c2.getSecond());
-            calendar.apply(world);
          }
+         calendar.apply(world);
 
       } catch (Exception e) {
          throw new WrongUsageException("commands.fixedtime.usage");

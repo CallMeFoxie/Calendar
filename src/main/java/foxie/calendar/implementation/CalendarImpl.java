@@ -104,16 +104,6 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public int getScaledDay() {
-      return getDay() + 1;
-   }
-
-   @Override
-   public ICalendarProvider setScaledDay(int newDay) {
-      return setDay(newDay - 1);
-   }
-
-   @Override
    public int getMonth() {
       return getMonth((int) ((getTime() / 24000) % getDaysInYear()));
    }
@@ -121,7 +111,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    @Override
    public ICalendarProvider setMonth(int newMonth) {
       if (newMonth < 0 || newMonth >= Config.days.length)
-         throw new IllegalArgumentException("Month has to be in the range of 0 - " + Config.days.length);
+         throw new IllegalArgumentException("Month has to be in the range of 0 - " + (Config.days.length - 1));
 
       if (Config.days[newMonth] < getDay())
          throw new IllegalArgumentException("There is no day " + getDay() + " in month " + getMonth());
@@ -146,16 +136,6 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       setTime(getTime() + toDeduct);
 
       return this;
-   }
-
-   @Override
-   public int getScaledMonth() {
-      return getMonth() + 1;
-   }
-
-   @Override
-   public ICalendarProvider setScaledMonth(int newMonth) {
-      return setMonth(newMonth - 1);
    }
 
    @Override
@@ -189,17 +169,6 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
    }
 
    @Override
-   public int getScaledHour() {
-      return getHour();
-   }
-
-   @Override
-   public ICalendarProvider setScaledHour(int newHour) {
-      return setHour(newHour);
-   }
-
-
-   @Override
    public int getMinute() {
       return (int) ((getTodaysTicks() % 1000) / 20f);
    }
@@ -210,30 +179,6 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
          throw new IllegalArgumentException("Minutes have to be in the range of 0 - 49");
 
       setTime(getTime() + (newMinutes - getMinute()) * TICKS_PER_MINUTE);
-
-      return this;
-   }
-
-   @Override
-   public int getScaledMinute() {
-      return (int) ((getTodaysTicks() % 1000) / 20f * (60f / 50f));
-   }
-
-   @Override
-   public ICalendarProvider setScaledMinute(int newMinute) {
-      setMinute((int) (newMinute * (5f / 6f)));
-
-      return this;
-   }
-
-   @Override
-   public int getScaledSecond() {
-      return (int) (getTime() % 20 * 3);
-   }
-
-   @Override
-   public ICalendarProvider setScaledSecond(int newSecond) {
-      setSecond(newSecond / 3);
 
       return this;
    }
@@ -253,13 +198,7 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       return this;
    }
 
-   ////////////// ================= increment/decrement classes
-   @Override
-   public ICalendarProvider addScaledSeconds(int seconds) {
-      addSeconds(seconds / 3);
-
-      return this;
-   }
+   ////////////// ================= increment/decrement methods
 
    @Override
    public ICalendarProvider addSeconds(int seconds) {
@@ -275,13 +214,6 @@ public class CalendarImpl implements Comparable<CalendarImpl>, ICalendarProvider
       }
 
       setSecond(newSeconds);
-
-      return this;
-   }
-
-   @Override
-   public ICalendarProvider addScaledMinutes(int minutes) {
-      addMinutes((int) (minutes * (5f / 6f)));
 
       return this;
    }

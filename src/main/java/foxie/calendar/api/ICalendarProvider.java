@@ -53,21 +53,6 @@ public interface ICalendarProvider {
    ICalendarProvider setDay(int newDay);
 
    /**
-    * Gets a scaled day in a given month.
-    *
-    * @return scaled day of the month
-    */
-   int getScaledDay();
-
-   /**
-    * Sets a scaled day in a given month.
-    *
-    * @param newDay new day
-    * @return self
-    */
-   ICalendarProvider setScaledDay(int newDay);
-
-   /**
     * Gets a month for a given time. Months are calculated from 0
     *
     * @return month of the year
@@ -75,10 +60,6 @@ public interface ICalendarProvider {
    int getMonth();
 
    ICalendarProvider setMonth(int newMonth);
-
-   int getScaledMonth();
-
-   ICalendarProvider setScaledMonth(int newMonth);
 
    /**
     * Gets a year. Years are calculated from 0
@@ -98,10 +79,6 @@ public interface ICalendarProvider {
 
    ICalendarProvider setHour(int newHour);
 
-   int getScaledHour();
-
-   ICalendarProvider setScaledHour(int newHour);
-
    /**
     * Calculates current minute. Note that there are 50 minutes, but it is rescaled to 60 minutes per hour!
     *
@@ -116,23 +93,11 @@ public interface ICalendarProvider {
     */
    ICalendarProvider setMinute(int newMinutes);
 
-   int getScaledMinute();
-
-   ICalendarProvider setScaledMinute(int newMinute);
-
-   int getScaledSecond();
-
-   ICalendarProvider setScaledSecond(int newSecond);
-
    int getSecond();
 
    ICalendarProvider setSecond(int newSecond);
 
-   ICalendarProvider addScaledSeconds(int seconds);
-
    ICalendarProvider addSeconds(int seconds);
-
-   ICalendarProvider addScaledMinutes(int minutes);
 
    ICalendarProvider addMinutes(int minutes);
 
