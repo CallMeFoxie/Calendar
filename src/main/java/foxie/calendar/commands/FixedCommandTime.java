@@ -2,14 +2,16 @@ package foxie.calendar.commands;
 
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandTime;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.command.server.CommandBlockLogic;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.tileentity.CommandBlockBaseLogic;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 import java.util.List;
@@ -22,15 +24,15 @@ public class FixedCommandTime extends CommandTime {
    }
 
    @Override
-   public void processCommand(ICommandSender sender, String[] params) {
+   public void execute(MinecraftServer server, ICommandSender sender, String[] params) throws CommandException {
       if (params.length == 0) {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
-         sender.addChatMessage(new ChatComponentText("It is " + calendar.getHour() + ":" + calendar.getMinute()));
+         sender.addChatMessage(new TextComponentString("It is " + calendar.getHour() + ":" + calendar.getMinute()));
          return;
       }
 
       if (params.length < 2) {
-         sender.addChatMessage(new ChatComponentTranslation("commands.fixedtime.usage"));
+         sender.addChatMessage(new TextComponentTranslation("commands.fixedtime.usage"));
       }
 
       World world = null;
@@ -38,8 +40,8 @@ public class FixedCommandTime extends CommandTime {
       if (sender instanceof EntityPlayer) {
          EntityPlayer player = (EntityPlayer) sender;
          world = player.worldObj;
-      } else if (sender instanceof CommandBlockLogic) {
-         CommandBlockLogic logic = (CommandBlockLogic) sender;
+      } else if (sender instanceof CommandBlockBaseLogic) {
+         CommandBlockBaseLogic logic = (CommandBlockBaseLogic) sender;
          world = logic.getEntityWorld();
       }
 
@@ -53,7 +55,7 @@ public class FixedCommandTime extends CommandTime {
          else if (params[0].equals("set")) processCommandSet(world, params[1]);
          else throw new WrongUsageException("commands.fixedtime.usage");
       } catch (Exception e) {
-         sender.addChatMessage(new ChatComponentTranslation("commands.fixedtime.usage"));
+         sender.addChatMessage(new TextComponentTranslation("commands.fixedtime.usage"));
       }
    }
 
@@ -102,11 +104,11 @@ public class FixedCommandTime extends CommandTime {
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params, BlockPos pos) {
-      return params.length == 1 ?
-              getListOfStringsMatchingLastWord(params, "set", "add") :
-              params.length == 2 && params[0].equals("set") ?
-                      getListOfStringsMatchingLastWord(params, "morning", "midday", "evening", "midnight") :
+   public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+      return args.length == 1 ?
+              getListOfStringsMatchingLastWord(args, "set", "add") :
+              args.length == 2 && args[0].equals("set") ?
+                      getListOfStringsMatchingLastWord(args, "morning", "midday", "evening", "midnight") :
                       null;
    }
 }

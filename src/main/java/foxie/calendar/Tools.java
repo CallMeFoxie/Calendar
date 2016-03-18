@@ -5,7 +5,7 @@ import foxie.calendar.api.ICalendarProvider;
 import foxie.calendar.api.ISeason;
 import foxie.calendar.implementation.CalendarImpl;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.text.TextComponentString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,13 +47,13 @@ public class Tools {
    }
 
    public static void sendCurrentDateTime(ICommandSender sender, ICalendarProvider calendar) {
-      sender.addChatMessage(new ChatComponentText("It is " + (calendar.getDay()) + ". " + (calendar.getMonth()) + ". " + calendar.getYear()
+      sender.addChatMessage(new TextComponentString("It is " + (calendar.getDay()) + ". " + (calendar.getMonth()) + ". " + calendar.getYear()
               + ", " + calendar.getHour() + ":" + calendar.getMinute()));
    }
 
    public static void listMonths(ICommandSender sender) {
       for (int i = 0; i < CalendarAPI.getCalendarInstance().getNumberOfMonths(); i++) {
-         sender.addChatMessage(new ChatComponentText("  " + (i + 1) + ": " + CalendarAPI.getCalendarInstance().getListOfMonthsString()[i]));
+         sender.addChatMessage(new TextComponentString("  " + (i + 1) + ": " + CalendarAPI.getCalendarInstance().getListOfMonthsString()[i]));
       }
    }
 

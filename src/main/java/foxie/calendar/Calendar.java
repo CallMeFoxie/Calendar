@@ -66,7 +66,7 @@ public class Calendar {
 
    @Mod.EventHandler
    public void serverStarted(FMLServerStartedEvent event) {
-      events.serverStarted();
+      events.serverStarted(event);
    }
 
    public Config getConfig() {

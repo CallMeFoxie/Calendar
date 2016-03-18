@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.Loader;
 
 public class MCVersionHelper {
    public static int getDimensionId(WorldProvider provider) {
-      return provider.getDimensionId();
+      return provider.getDimension();
    }
 
    public static int getDimensionId(World world) {

@@ -1,23 +1,21 @@
 package foxie.calendar;
 
-import foxie.calendar.api.CalendarAPI;
-import foxie.calendar.api.DateTimeEvent;
-import foxie.calendar.api.ICalendarProvider;
-import foxie.calendar.api.ISeason;
+import foxie.calendar.api.*;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Events {
-   public static Events                          INSTANCE;
-   public        Map<Integer, ICalendarProvider> providerMap;
+   public static Events INSTANCE;
+   public Map<Integer, ICalendarProvider> providerMap;
 
    public Events() {
       INSTANCE = this;
@@ -28,19 +26,19 @@ public class Events {
    }
 
    public void init() {
-      FMLCommonHandler.instance().bus().register(INSTANCE);
       MinecraftForge.EVENT_BUS.register(INSTANCE);
    }
 
    public void postinit() {
    }
 
-   public void serverStarted() {
+   public void serverStarted(FMLServerStartedEvent event) {
       INSTANCE.providerMap = new HashMap<Integer, ICalendarProvider>();
 
-      for (int i = 0; i < MinecraftServer.getServer().worldServers.length; i++) {
-         WorldServer server = MinecraftServer.getServer().worldServers[i];
-         INSTANCE.providerMap.put(server.provider.getDimensionId(), CalendarAPI.getCalendarInstance(server.provider.getWorldTime()));
+      MinecraftServer xserver = FMLCommonHandler.instance().getMinecraftServerInstance();
+      for (int i = 0; i < xserver.getServer().worldServers.length; i++) {
+         WorldServer server = xserver.getServer().worldServers[i];
+         INSTANCE.providerMap.put(MCVersionHelper.getDimensionId(server), CalendarAPI.getCalendarInstance(server.provider.getWorldTime()));
       }
    }
 
@@ -50,7 +48,7 @@ public class Events {
          return;
 
       ICalendarProvider newCalendar = CalendarAPI.getCalendarInstance(event.world.provider.getWorldTime());
-      ICalendarProvider previousCalendar = providerMap.get(event.world.provider.getDimensionId());
+      ICalendarProvider previousCalendar = providerMap.get(event.world.provider.getDimension());
 
       if (previousCalendar.getDay() != newCalendar.getDay()) {
          fireEventNewDay(event.world, previousCalendar);
@@ -71,7 +69,7 @@ public class Events {
          fireEventNewSeason(event.world, previousCalendar, previousSeason);
       }
 
-      providerMap.put(event.world.provider.getDimensionId(), newCalendar);
+      providerMap.put(event.world.provider.getDimension(), newCalendar);
    }
 
    private void fireEventNewDay(World world, ICalendarProvider calendar) {
