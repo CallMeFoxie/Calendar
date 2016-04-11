@@ -7,7 +7,7 @@ import net.minecraftforge.common.config.Configuration;
 
 public class Season implements ISeason {
 
-   private String            name;
+   private String name;
    private ICalendarProvider beginDate;
 
    private int beginTemp, midTemp, endTemp;
@@ -39,26 +39,17 @@ public class Season implements ISeason {
    }
 
    @Override
-   public int getTemperature(ICalendarProvider provider, float progress) {
-      int minTemp = beginTemp;
-      int maxTemp = midTemp;
-
+   public float getTemperature(float progress) {
       if (progress > 0.5) {
-         minTemp = midTemp;
-         maxTemp = endTemp;
-         progress -= 0.5;
+         return (int) (midTemp + ((progress - 0.5) * 2) * (endTemp - midTemp));
+      } else {
+         return (int) (beginTemp + (progress * 2) * (beginTemp - midTemp));
       }
-
-      double leftHalf = progress;
-      double rightHalf = 0.5 - progress;
-      int tempDef = Math.max(minTemp, maxTemp) - Math.min(minTemp, maxTemp);
-
-      return (int) (tempDef * leftHalf + minTemp);
    }
 
    public void getConfig(Configuration cfg) {
       cfg.getInt(name + "_month_begin", "seasons", getBeginningDate().getMonth(), 0, getBeginningDate().getNumberOfMonths(), "Beginning month for " + name);
-      cfg.getInt(name + "_day_begin", "seasons", getBeginningDate().getDay(), 0, (int)getBeginningDate().getDaysInMonth(getBeginningDate().getMonth()), "Beginning day for " + name);
+      cfg.getInt(name + "_day_begin", "seasons", getBeginningDate().getDay(), 0, (int) getBeginningDate().getDaysInMonth(getBeginningDate().getMonth()), "Beginning day for " + name);
       cfg.getInt(name + "_begin_temp", "seasons", beginTemp, 0, 1000, "Starting temperature of the season (K)");
       cfg.getInt(name + "_mid_temp", "seasons", midTemp, 0, 1000, "Temperature in the middle of the season (K)");
       cfg.getInt(name + "_end_temp", "seasons", endTemp, 0, 1000, "Temperature at the end of the season (K)");
