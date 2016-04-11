@@ -3,6 +3,7 @@ package foxie.calendar;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.commands.CommandDate;
 import foxie.calendar.commands.CommandSeason;
+import foxie.calendar.commands.CommandTemperature;
 import foxie.calendar.commands.FixedCommandTime;
 import foxie.calendar.implementation.CalendarImpl;
 import foxie.calendar.implementation.SeasonProvider;
@@ -54,14 +55,13 @@ public class Calendar {
 
    @Mod.EventHandler
    public void serverStarting(FMLServerStartingEvent event) {
-      if (Config.enableFixedTimeCommand)
-         event.registerServerCommand(new FixedCommandTime());
+      event.registerServerCommand(new FixedCommandTime());
 
-      if (Config.enableDateCommand)
-         event.registerServerCommand(new CommandDate());
+      event.registerServerCommand(new CommandDate());
 
-      if (Config.enableSeasonCommand)
-         event.registerServerCommand(new CommandSeason());
+      event.registerServerCommand(new CommandSeason());
+
+      event.registerServerCommand(new CommandTemperature());
    }
 
    @Mod.EventHandler

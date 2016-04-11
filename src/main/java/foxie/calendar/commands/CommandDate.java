@@ -1,5 +1,6 @@
 package foxie.calendar.commands;
 
+import foxie.calendar.Config;
 import foxie.calendar.Tools;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
@@ -27,6 +28,9 @@ public class CommandDate extends CommandBase {
 
    @Override
    public void processCommand(ICommandSender sender, String[] args) {
+      if(!Config.enableDateCommand)
+         return;
+
       ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
 
       try {
