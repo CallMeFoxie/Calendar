@@ -1,11 +1,11 @@
 package foxie.calendar.implementation;
 
 import foxie.calendar.Calendar;
+import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
 import foxie.calendar.api.ISeason;
 import foxie.calendar.api.ISeasonProvider;
-import net.minecraft.world.World;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.ArrayList;
@@ -113,9 +113,10 @@ public class SeasonProvider implements ISeasonProvider {
    }
 
    @Override
-   public int getTemperature(World world, int x, int y, int z) {
+   public float getTemperature(ICalendarProvider provider, int x, int y, int z) {
       // presume that equator = z 0
-      // TODO
-      return 0;
+      float temp = getAverageTemperature(provider);
+      temp -= Math.abs(z) * Config.tempLostPerZ;
+      return temp;
    }
 }
