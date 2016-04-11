@@ -1,5 +1,6 @@
 package foxie.calendar.commands;
 
+import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ISeason;
 import net.minecraft.command.CommandBase;
@@ -23,6 +24,9 @@ public class CommandSeason extends CommandBase {
 
    @Override
    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+      if(!Config.enableSeasonCommand)
+         return;
+
       if (args.length == 0) {
          ISeason season = CalendarAPI.getSeasonProvider().getSeason(CalendarAPI.getCalendarInstance(sender.getEntityWorld()));
          sender.addChatMessage(new TextComponentTranslation("commands.season.current", season.getName()));

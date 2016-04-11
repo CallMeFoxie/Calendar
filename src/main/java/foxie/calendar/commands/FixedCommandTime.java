@@ -1,5 +1,6 @@
 package foxie.calendar.commands;
 
+import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
 import net.minecraft.command.CommandException;
@@ -25,6 +26,9 @@ public class FixedCommandTime extends CommandTime {
 
    @Override
    public void execute(MinecraftServer server, ICommandSender sender, String[] params) throws CommandException {
+      if(!Config.enableFixedTimeCommand)
+         return;
+
       if (params.length == 0) {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
          sender.addChatMessage(new TextComponentString("It is " + calendar.getHour() + ":" + calendar.getMinute()));
