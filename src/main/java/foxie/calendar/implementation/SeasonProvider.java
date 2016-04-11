@@ -23,10 +23,10 @@ public class SeasonProvider implements ISeasonProvider {
 
       // init with default values
       seasons = new ArrayList<ISeason>();
-      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11), 270, 240, 260));
-      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5), 285, 303, 295));
-      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2), 260, 280, 285));
-      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8), 295, 280, 270));
+      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11), 270, 240, 260, 30));
+      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5), 285, 303, 295, 20));
+      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2), 260, 280, 285, 15));
+      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8), 295, 280, 270, 15));
 
       // now actually read them from the config
       Configuration cfg = Calendar.INSTANCE.getConfig().getConfig();
@@ -108,14 +108,17 @@ public class SeasonProvider implements ISeasonProvider {
    }
 
    @Override
-   public float getAverageTemperature(ICalendarProvider provider) {
-      return getSeason(provider).getTemperature(getSeasonProgress(provider));
+   public float getAverageTemperature(ICalendarProvider provider, boolean withDayOffset) {
+      if(withDayOffset)
+         return getSeason(provider).getTemperature(getSeasonProgress(provider), provider);
+      else
+         return getSeason(provider).getTemperature(getSeasonProgress(provider));
    }
 
    @Override
    public float getTemperature(ICalendarProvider provider, int x, int y, int z) {
       // presume that equator = z 0
-      float temp = getAverageTemperature(provider);
+      float temp = getAverageTemperature(provider, true);
       temp -= Math.abs(z) * Config.tempLostPerZ;
       return temp;
    }
