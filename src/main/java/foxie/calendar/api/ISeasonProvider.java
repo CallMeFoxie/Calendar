@@ -24,7 +24,7 @@ public interface ISeasonProvider {
     */
    ISeason[] getAllSeasons();
 
-   float getAverageTemperature(ICalendarProvider provider);
+   float getAverageTemperature(ICalendarProvider provider, boolean withDayOffset);
 
    /**
     * Get temperature
