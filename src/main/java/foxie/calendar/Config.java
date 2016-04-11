@@ -13,7 +13,7 @@ public class Config {
    public static String[] months = new String[]{"January", "February", "March", "April",
            "May", "June", "July", "August", "September", "October", "November", "December"};
 
-   public static long yOffsetOfMidTemp = 11000;
+   public static float tempLostPerZ = 0.005f; // 200 blocks = 1K = 1C drop, reasonable by default?
 
    public static boolean enableFixedTimeCommand = true;
    public static boolean enableDateCommand      = true;
@@ -39,6 +39,7 @@ public class Config {
       enableDateCommand = cfg.getBoolean("enableDateCommand", "config", enableDateCommand, "Enable date command");
       enableSeasonCommand = cfg.getBoolean("enableSeasonCommand", "config", enableSeasonCommand, "Enable season command");
       enableGetTempCommand = cfg.getBoolean("enableGetTempCommand", "config", enableGetTempCommand, "Enable gettemp command");
+      tempLostPerZ = cfg.getFloat("tempLostPerZ", "config", tempLostPerZ, 0f, 999f, "How much temperature [K] is lost per Z block distance");
 
       if (cfg.hasChanged())
          cfg.save();
