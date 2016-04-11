@@ -18,9 +18,8 @@ public interface ISeason extends Comparable<ISeason> {
    /**
     * Gets a temperature for the season in Kelvin
     *
-    * @param provider current date
     * @param progress progress (0 - 1) of the season
     * @return current temperature in Kelvin
     */
-   int getTemperature(ICalendarProvider provider, float progress);
+   float getTemperature(float progress);
 }

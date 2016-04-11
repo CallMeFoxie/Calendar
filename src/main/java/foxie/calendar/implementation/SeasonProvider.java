@@ -74,8 +74,8 @@ public class SeasonProvider implements ISeasonProvider {
 
    @Override
    public float getSeasonProgress(ICalendarProvider calendar) {
-      ICalendarProvider beginning;
-      ICalendarProvider ending;
+      ICalendarProvider beginning = null;
+      ICalendarProvider ending = null;
 
       calendar = calendar.copy();
       calendar.setYear(0);
@@ -84,11 +84,14 @@ public class SeasonProvider implements ISeasonProvider {
          if (calendar.getTime() >= seasons.get(i).getBeginningDate().getTime() && calendar.getTime() < seasons.get(i + 1).getBeginningDate().getTime()) {
             beginning = seasons.get(i).getBeginningDate();
             ending = seasons.get(i + 1).getBeginningDate();
+            break;
          }
       }
 
-      beginning = seasons.get(seasons.size() - 1).getBeginningDate();
-      ending = seasons.get(0).getBeginningDate();
+      if(beginning == null) {
+         beginning = seasons.get(seasons.size() - 1).getBeginningDate();
+         ending = seasons.get(0).getBeginningDate();
+      }
 
       if (calendar.getTime() < beginning.getTime())
          calendar.addYears(1);
@@ -96,12 +99,17 @@ public class SeasonProvider implements ISeasonProvider {
       if (ending.getTime() < beginning.getTime())
          ending.addYears(1);
 
-      return (calendar.getTime() - beginning.getTime()) / (ending.getTime() - beginning.getTime());
+      return (float)(calendar.getTime() - beginning.getTime()) / (float)(ending.getTime() - beginning.getTime());
    }
 
    @Override
    public ISeason[] getAllSeasons() {
       return seasons.toArray(new ISeason[seasons.size()]);
+   }
+
+   @Override
+   public float getAverageTemperature(ICalendarProvider provider) {
+      return getSeason(provider).getTemperature(getSeasonProgress(provider));
    }
 
    @Override
