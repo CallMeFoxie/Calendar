@@ -26,6 +26,8 @@ public interface ISeasonProvider {
     */
    ISeason[] getAllSeasons();
 
+   float getAverageTemperature(ICalendarProvider provider);
+
    /**
     * Get temperature
     *
