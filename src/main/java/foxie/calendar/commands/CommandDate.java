@@ -4,18 +4,19 @@ import foxie.calendar.Config;
 import foxie.calendar.Tools;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
-import net.minecraft.command.CommandBase;
+import foxie.calendar.versionhelpers.AbstractCommand;
+import foxie.calendar.versionhelpers.TextComponentString;
+import foxie.calendar.versionhelpers.TextComponentTranslation;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.server.MinecraftServer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommandDate extends CommandBase {
+public class CommandDate extends AbstractCommand {
    @Override
    public String getCommandName() {
       return "date";
@@ -27,18 +28,18 @@ public class CommandDate extends CommandBase {
    }
 
    @Override
-   public void processCommand(ICommandSender sender, String[] args) {
-      if(!Config.enableDateCommand)
+   public void doCommand(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+      if (!Config.enableDateCommand)
          return;
 
       ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
 
       try {
          if (args.length == 0) {
-            sender.addChatMessage(new ChatComponentText(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
+            sender.addChatMessage(new TextComponentString(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
          } else if (args.length == 1) {
             if (args[0].equals("list")) {
-               sender.addChatMessage(new ChatComponentTranslation("commands.date.listing"));
+               sender.addChatMessage(new TextComponentTranslation("commands.date.listing"));
                Tools.listMonths(sender);
             }
          } else if (args.length == 2 || args.length > 4)
@@ -53,18 +54,18 @@ public class CommandDate extends CommandBase {
             calendar.apply(sender.getEntityWorld());
          }
       } catch (IllegalArgumentException e) {
-         sender.addChatMessage(new ChatComponentTranslation("commands.date.nosuchday"));
+         sender.addChatMessage(new TextComponentTranslation("commands.date.nosuchday"));
       } catch (Exception e) {
-         sender.addChatMessage(new ChatComponentTranslation("commands.date.usage"));
+         sender.addChatMessage(new TextComponentTranslation("commands.date.usage"));
       }
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params, BlockPos pos) {
+   public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, int x, int y, int z) {
       // TODO named months API
-      switch (params.length) {
+      switch (args.length) {
          case 0:
-            return getListOfStringsMatchingLastWord(params, "set");
+            return getListOfStringsMatchingLastWord(args, "set");
          case 2:
             ArrayList<String> list = new ArrayList<String>();
             for (int i = 0; i < CalendarAPI.getCalendarInstance().getNumberOfMonths(); i++) {
