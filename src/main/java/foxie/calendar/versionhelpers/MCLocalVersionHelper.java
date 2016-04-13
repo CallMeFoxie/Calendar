@@ -1,4 +1,4 @@
-package foxie.calendar;
+package foxie.calendar.versionhelpers;
 
 import net.minecraft.util.StatCollector;
 

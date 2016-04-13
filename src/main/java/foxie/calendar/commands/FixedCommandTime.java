@@ -3,18 +3,28 @@ package foxie.calendar.commands;
 import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
-import net.minecraft.command.CommandTime;
+import foxie.calendar.versionhelpers.AbstractCommand;
+import foxie.calendar.versionhelpers.TextComponentString;
+import foxie.calendar.versionhelpers.TextComponentTranslation;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.command.server.CommandBlockLogic;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-public class FixedCommandTime extends CommandTime {
+public class FixedCommandTime extends AbstractCommand {
+
+   @Override
+   public String getCommandName() {
+      return "time";
+   }
+
+   @Override
+   public int getRequiredPermissionLevel() {
+      return 2;
+   }
 
    @Override
    public String getCommandUsage(ICommandSender sender) {
@@ -22,41 +32,35 @@ public class FixedCommandTime extends CommandTime {
    }
 
    @Override
-   public void processCommand(ICommandSender sender, String[] params) {
-      if(!Config.enableFixedTimeCommand)
+   public void doCommand(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+      if (!Config.enableFixedTimeCommand)
          return;
 
-      if (params.length == 0) {
+      if (args.length == 0) {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
-         sender.addChatMessage(new ChatComponentText("It is " + calendar.getHour() + ":" + calendar.getMinute()));
+         sender.addChatMessage(new TextComponentString("It is " + calendar.getHour() + ":" + calendar.getMinute()));
          return;
       }
 
-      if (params.length < 2) {
-         sender.addChatMessage(new ChatComponentTranslation("commands.fixedtime.usage"));
+      if (args.length < 2) {
+         sender.addChatMessage(new TextComponentTranslation("commands.fixedtime.usage"));
       }
 
       World world = null;
 
-      if (sender instanceof EntityPlayer) {
-         EntityPlayer player = (EntityPlayer) sender;
-         world = player.worldObj;
-      } else if (sender instanceof CommandBlockLogic) {
-         CommandBlockLogic logic = (CommandBlockLogic) sender;
-         world = logic.getEntityWorld();
-      }
+      world = sender.getEntityWorld();
 
       try {
-         if (params.length == 3 && params[0].equals("set")) {
-            processCommandSet(world, params[1], params[2]);
+         if (args.length == 3 && args[0].equals("set")) {
+            processCommandSet(world, args[1], args[2]);
             return;
          }
 
-         if (params[0].equals("add")) processCommandAdd(world, params[1]);
-         else if (params[0].equals("set")) processCommandSet(world, params[1]);
+         if (args[0].equals("add")) processCommandAdd(world, args[1]);
+         else if (args[0].equals("set")) processCommandSet(world, args[1]);
          else throw new WrongUsageException("commands.fixedtime.usage");
       } catch (Exception e) {
-         sender.addChatMessage(new ChatComponentTranslation("commands.fixedtime.usage"));
+         sender.addChatMessage(new TextComponentTranslation("commands.fixedtime.usage"));
       }
    }
 
@@ -105,11 +109,11 @@ public class FixedCommandTime extends CommandTime {
    }
 
    @Override
-   public List addTabCompletionOptions(ICommandSender sender, String[] params) {
-      return params.length == 1 ?
-              getListOfStringsMatchingLastWord(params, "set", "add") :
-              params.length == 2 && params[0].equals("set") ?
-                      getListOfStringsMatchingLastWord(params, "morning", "midday", "evening", "midnight") :
+   public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, int x, int y, int z) {
+      return args.length == 1 ?
+              getListOfStringsMatchingLastWord(args, "set", "add") :
+              args.length == 2 && args[0].equals("set") ?
+                      getListOfStringsMatchingLastWord(args, "morning", "midday", "evening", "midnight") :
                       null;
    }
 }

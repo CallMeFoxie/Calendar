@@ -3,12 +3,16 @@ package foxie.calendar.commands;
 import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.MCVersionHelper;
-import net.minecraft.command.CommandBase;
+import foxie.calendar.versionhelpers.AbstractCommand;
+import foxie.calendar.versionhelpers.TextComponentString;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ChatComponentText;
+import net.minecraft.server.MinecraftServer;
 
-public class CommandTemperature extends CommandBase {
+import javax.vecmath.Point3d;
+
+
+public class CommandTemperature extends AbstractCommand {
    @Override
    public String getCommandName() {
       return "gettemp";
@@ -20,22 +24,19 @@ public class CommandTemperature extends CommandBase {
    }
 
    @Override
-   public void processCommand(ICommandSender sender, String[] args) {
+   public void doCommand(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
       if (!Config.enableGetTempCommand)
          return;
 
-      if(!(sender instanceof EntityPlayer))
-         return;
+      Point3d location = getPosition(sender);
 
-      EntityPlayer player = (EntityPlayer) sender;
-
-      sender.addChatMessage(new ChatComponentText("Average temperature: " +
+      sender.addChatMessage(new TextComponentString("Average temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
                       .getAverageTemperature(CalendarAPI.getCalendarInstance(sender.getEntityWorld()), false)));
 
-      sender.addChatMessage(new ChatComponentText("Actual temperature: " +
+      sender.addChatMessage(new TextComponentString("Actual temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
                       .getTemperature(CalendarAPI.getCalendarInstance(sender.getEntityWorld()),
-                              (int)player.posX, (int)player.posY, (int)player.posZ)));
+                              (int)location.x, (int)location.y, (int)location.z)));
    }
 }
