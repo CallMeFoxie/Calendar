@@ -4,20 +4,19 @@ import foxie.calendar.Config;
 import foxie.calendar.Tools;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
-import net.minecraft.command.CommandBase;
+import foxie.calendar.versionhelpers.AbstractCommand;
+import foxie.calendar.versionhelpers.TextComponentString;
+import foxie.calendar.versionhelpers.TextComponentTranslation;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CommandDate extends CommandBase {
+public class CommandDate extends AbstractCommand {
    @Override
    public String getCommandName() {
       return "date";
@@ -29,8 +28,8 @@ public class CommandDate extends CommandBase {
    }
 
    @Override
-   public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-      if(!Config.enableDateCommand)
+   public void doCommand(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+      if (!Config.enableDateCommand)
          return;
 
       ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
@@ -62,7 +61,7 @@ public class CommandDate extends CommandBase {
    }
 
    @Override
-   public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+   public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, int x, int y, int z) {
       // TODO named months API
       switch (args.length) {
          case 0:

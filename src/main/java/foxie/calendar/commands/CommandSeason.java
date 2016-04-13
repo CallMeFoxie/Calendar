@@ -3,14 +3,14 @@ package foxie.calendar.commands;
 import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ISeason;
-import net.minecraft.command.CommandBase;
+import foxie.calendar.versionhelpers.AbstractCommand;
+import foxie.calendar.versionhelpers.TextComponentString;
+import foxie.calendar.versionhelpers.TextComponentTranslation;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
 
-public class CommandSeason extends CommandBase {
+public class CommandSeason extends AbstractCommand {
 
    @Override
    public String getCommandName() {
@@ -23,7 +23,7 @@ public class CommandSeason extends CommandBase {
    }
 
    @Override
-   public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+   public void doCommand(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
       if(!Config.enableSeasonCommand)
          return;
 

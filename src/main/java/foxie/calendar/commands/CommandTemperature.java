@@ -3,13 +3,16 @@ package foxie.calendar.commands;
 import foxie.calendar.Config;
 import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.MCVersionHelper;
-import net.minecraft.command.CommandBase;
+import foxie.calendar.versionhelpers.AbstractCommand;
+import foxie.calendar.versionhelpers.TextComponentString;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.TextComponentString;
 
-public class CommandTemperature extends CommandBase {
+import javax.vecmath.Point3d;
+
+
+public class CommandTemperature extends AbstractCommand {
    @Override
    public String getCommandName() {
       return "gettemp";
@@ -21,9 +24,11 @@ public class CommandTemperature extends CommandBase {
    }
 
    @Override
-   public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+   public void doCommand(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
       if (!Config.enableGetTempCommand)
          return;
+
+      Point3d location = getPosition(sender);
 
       sender.addChatMessage(new TextComponentString("Average temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
@@ -32,6 +37,6 @@ public class CommandTemperature extends CommandBase {
       sender.addChatMessage(new TextComponentString("Actual temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
                       .getTemperature(CalendarAPI.getCalendarInstance(sender.getEntityWorld()),
-                              sender.getPosition().getX(), sender.getPosition().getY(), sender.getPosition().getZ())));
+                              (int)location.x, (int)location.y, (int)location.z)));
    }
 }
