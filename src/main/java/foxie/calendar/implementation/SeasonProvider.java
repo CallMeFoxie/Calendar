@@ -23,10 +23,10 @@ public class SeasonProvider implements ISeasonProvider {
 
       // init with default values
       seasons = new ArrayList<ISeason>();
-      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11), 270, 240, 260, 30));
-      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5), 285, 303, 295, 20));
-      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2), 260, 280, 285, 15));
-      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8), 295, 280, 270, 15));
+      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11), 270, 240, 260, 40));
+      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5), 285, 303, 295, 30));
+      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2), 260, 280, 285, 20));
+      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8), 295, 280, 270, 22));
 
       // now actually read them from the config
       Configuration cfg = Calendar.INSTANCE.getConfig().getConfig();
@@ -112,7 +112,7 @@ public class SeasonProvider implements ISeasonProvider {
       if(withDayOffset)
          return getSeason(provider).getTemperature(getSeasonProgress(provider), provider);
       else
-         return getSeason(provider).getTemperature(getSeasonProgress(provider));
+         return getSeason(provider).getAverageTemperature(getSeasonProgress(provider));
    }
 
    @Override
@@ -120,6 +120,8 @@ public class SeasonProvider implements ISeasonProvider {
       // presume that equator = z 0
       float temp = getAverageTemperature(provider, true);
       temp -= Math.abs(z) * Config.tempLostPerZ;
+      int offsetY = y - 64; // y 64 = ground level
+      temp += offsetY * Config.tempLostPerY;
       return temp;
    }
 }
