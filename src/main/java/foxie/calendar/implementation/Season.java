@@ -37,7 +37,7 @@ public class Season implements ISeason {
    }
 
    @Override
-   public float getTemperature(float progress) {
+   public float getAverageTemperature(float progress) {
       if (progress > 0.5) {
          return (int) (midTemp + ((progress - 0.5) * 2) * (endTemp - midTemp));
       } else {
@@ -48,9 +48,9 @@ public class Season implements ISeason {
    @Override
    public float getTemperature(float progress, ICalendarProvider time) {
 
-      double daytimeSin = Math.sin(1f / 12 * Math.PI * (time.getHour() - 8));
+      double daytimeSin = (Math.sin(1f / 12 * Math.PI * (time.getHour() - 8)) + 1) / 2;
 
-      return (float) (getTemperature(progress) + daytimeSin * dropTemp);
+      return (float) (getAverageTemperature(progress) + daytimeSin * dropTemp);
    }
 
    public void getConfig(Configuration cfg) {

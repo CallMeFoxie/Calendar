@@ -21,7 +21,7 @@ public interface ISeason extends Comparable<ISeason> {
     * @param progress progress (0 - 1) of the season
     * @return current temperature in Kelvin
     */
-   float getTemperature(float progress);
+   float getAverageTemperature(float progress);
 
    /**
     * Gets a temperature for the season in Kelvin at a given progress of the day

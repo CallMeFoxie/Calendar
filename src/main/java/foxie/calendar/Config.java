@@ -14,11 +14,13 @@ public class Config {
            "May", "June", "July", "August", "September", "October", "November", "December"};
 
    public static float tempLostPerZ = 0.005f; // 200 blocks = 1K = 1C drop, reasonable by default?
+   public static float tempLostPerY = -0.15625f; // +10deg near the earth core
 
    public static boolean enableFixedTimeCommand = true;
    public static boolean enableDateCommand      = true;
    public static boolean enableSeasonCommand    = true;
    public static boolean enableGetTempCommand   = true;
+
 
    private Configuration cfg;
 
@@ -39,7 +41,8 @@ public class Config {
       enableDateCommand = cfg.getBoolean("enableDateCommand", "config", enableDateCommand, "Enable date command");
       enableSeasonCommand = cfg.getBoolean("enableSeasonCommand", "config", enableSeasonCommand, "Enable season command");
       enableGetTempCommand = cfg.getBoolean("enableGetTempCommand", "config", enableGetTempCommand, "Enable gettemp command");
-      tempLostPerZ = cfg.getFloat("tempLostPerZ", "config", tempLostPerZ, 0f, 999f, "How much temperature [K] is lost per Z block distance");
+      tempLostPerZ = cfg.getFloat("tempLostPerZ", "config", tempLostPerZ, -999f, 999f, "How much temperature [K] is lost per Z block distance");
+      tempLostPerY = cfg.getFloat("tempLostPerY", "config", tempLostPerY, -999f, 999f, "How much temperature [K] is lost per Y block distance (ref y 64)");
 
       if (cfg.hasChanged())
          cfg.save();
