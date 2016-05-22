@@ -16,7 +16,7 @@ public class MCLocalVersionHelper {
    }
 
    public static boolean canTranslate(String key) {
-      return I18n.canTranslate(key);
+      return net.minecraft.client.resources.I18n.hasKey(key);
    }
 
    public static long getLastTranslationUpdateTimeInMilliseconds() {
