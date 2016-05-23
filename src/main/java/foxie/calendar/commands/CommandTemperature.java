@@ -32,11 +32,11 @@ public class CommandTemperature extends AbstractCommand {
 
       sender.addChatMessage(new TextComponentString("Average temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
-                      .getAverageTemperature(CalendarAPI.getCalendarInstance(sender.getEntityWorld()), false)));
+                      .getAverageTemperature(sender.getEntityWorld(), false)));
 
       sender.addChatMessage(new TextComponentString("Actual temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
-                      .getTemperature(CalendarAPI.getCalendarInstance(sender.getEntityWorld()),
+                      .getTemperature(sender.getEntityWorld(),
                               (int)location.x, (int)location.y, (int)location.z)));
    }
 }

@@ -6,6 +6,9 @@ import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
 import foxie.calendar.api.ISeason;
 import foxie.calendar.api.ISeasonProvider;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.ArrayList;
@@ -108,7 +111,8 @@ public class SeasonProvider implements ISeasonProvider {
    }
 
    @Override
-   public float getAverageTemperature(ICalendarProvider provider, boolean withDayOffset) {
+   public float getAverageTemperature(World world, boolean withDayOffset) {
+      ICalendarProvider provider = CalendarAPI.getCalendarInstance(world);
       if(withDayOffset)
          return getSeason(provider).getTemperature(getSeasonProgress(provider), provider);
       else
@@ -116,12 +120,17 @@ public class SeasonProvider implements ISeasonProvider {
    }
 
    @Override
-   public float getTemperature(ICalendarProvider provider, int x, int y, int z) {
+   public float getTemperature(World world, int x, int y, int z) {
       // presume that equator = z 0
-      float temp = getAverageTemperature(provider, true);
+      float temp = getAverageTemperature(world, true);
       temp -= Math.abs(z) * Config.tempLostPerZ;
-      int offsetY = y - 64; // y 64 = ground level
-      temp += offsetY * Config.tempLostPerY;
+      // add biome offset.
+      // mojang has got 0f - 2f for temperature.
+      // let's assume that 0f = -10K and 2f = +40F
+      Biome biome = world.getBiome(new BlockPos(x, y, z));
+      float scaledRange = biome.getFloatTemperature(new BlockPos(x, y, z)) / 2f * 50f; // scale to 0-1 and then 0-50
+      scaledRange -= 10;
+      temp += scaledRange;
       return temp;
    }
 }

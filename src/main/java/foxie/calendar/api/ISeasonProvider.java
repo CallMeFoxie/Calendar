@@ -1,5 +1,7 @@
 package foxie.calendar.api;
 
+import net.minecraft.world.World;
+
 public interface ISeasonProvider {
    /**
     * Gets a season for a given month
@@ -24,16 +26,24 @@ public interface ISeasonProvider {
     */
    ISeason[] getAllSeasons();
 
-   float getAverageTemperature(ICalendarProvider provider, boolean withDayOffset);
+   /**
+    * Get average temperature per day for given biome. Ignores XYZ
+    *
+    * @param world world instance to get temperature for
+    * @param withDayOffset use current day offset
+    *
+    * @return average temperature in Kelvines
+    */
+   float getAverageTemperature(World world, boolean withDayOffset);
 
    /**
     * Get temperature
     *
-    * @param calendar calendar instance
+    * @param world world instance to get temperature for
     * @param x     xCoord
     * @param y     yCoord
     * @param z     zCoord
     * @return temperature in Kelvines
     */
-   float getTemperature(ICalendarProvider calendar, int x, int y, int z);
+   float getTemperature(World world, int x, int y, int z);
 }
