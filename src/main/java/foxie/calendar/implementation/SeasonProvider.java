@@ -6,9 +6,7 @@ import foxie.calendar.api.CalendarAPI;
 import foxie.calendar.api.ICalendarProvider;
 import foxie.calendar.api.ISeason;
 import foxie.calendar.api.ISeasonProvider;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.config.Configuration;
 
 import java.util.ArrayList;
@@ -124,13 +122,8 @@ public class SeasonProvider implements ISeasonProvider {
       // presume that equator = z 0
       float temp = getAverageTemperature(world, true);
       temp -= Math.abs(z) * Config.tempLostPerZ;
-      // add biome offset.
-      // mojang has got 0f - 2f for temperature.
-      // let's assume that 0f = -10K and 2f = +40F
-      Biome biome = world.getBiome(new BlockPos(x, y, z));
-      float scaledRange = biome.getFloatTemperature(new BlockPos(x, y, z)) / 2f * 50f; // scale to 0-1 and then 0-50
-      scaledRange -= 10;
-      temp += scaledRange;
+      int offsetY = y - 64; // y 64 = ground level
+      temp += offsetY * Config.tempLostPerY;
       return temp;
    }
 }
