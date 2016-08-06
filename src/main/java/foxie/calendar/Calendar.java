@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.event.*;
 
 @Mod(modid = Calendar.MODID, name = Calendar.NAME, version = Calendar.VERSION)
 public class Calendar {
-   public static final String MODID   = "CalendarAPI";
+   public static final String MODID   = "calendarapi";
    public static final String NAME    = "CalendarAPI";
    public static final String VERSION = "@VERSION@";
 
