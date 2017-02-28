@@ -18,12 +18,12 @@ import java.util.List;
 
 public class CommandDate extends AbstractCommand {
    @Override
-   public String getCommandName() {
+   public String getName() {
       return "date";
    }
 
    @Override
-   public String getCommandUsage(ICommandSender sender) {
+   public String getUsage(ICommandSender sender) {
       return "commands.date.usage";
    }
 
@@ -36,10 +36,10 @@ public class CommandDate extends AbstractCommand {
 
       try {
          if (args.length == 0) {
-            sender.addChatMessage(new TextComponentString(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
+            sender.sendMessage(new TextComponentString(calendar.getDay() + ". " + calendar.getMonth() + ". " + calendar.getYear()));
          } else if (args.length == 1) {
             if (args[0].equals("list")) {
-               sender.addChatMessage(new TextComponentTranslation("commands.date.listing"));
+               sender.sendMessage(new TextComponentTranslation("commands.date.listing"));
                Tools.listMonths(sender);
             }
          } else if (args.length == 2 || args.length > 4)
@@ -54,9 +54,9 @@ public class CommandDate extends AbstractCommand {
             calendar.apply(sender.getEntityWorld());
          }
       } catch (IllegalArgumentException e) {
-         sender.addChatMessage(new TextComponentTranslation("commands.date.nosuchday"));
+         sender.sendMessage(new TextComponentTranslation("commands.date.nosuchday"));
       } catch (Exception e) {
-         sender.addChatMessage(new TextComponentTranslation("commands.date.usage"));
+         sender.sendMessage(new TextComponentTranslation("commands.date.usage"));
       }
    }
 

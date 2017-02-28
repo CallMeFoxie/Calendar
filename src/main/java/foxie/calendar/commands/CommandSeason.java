@@ -13,12 +13,12 @@ import net.minecraft.server.MinecraftServer;
 public class CommandSeason extends AbstractCommand {
 
    @Override
-   public String getCommandName() {
+   public String getName() {
       return "season";
    }
 
    @Override
-   public String getCommandUsage(ICommandSender sender) {
+   public String getUsage(ICommandSender sender) {
       return "commands.season.usage";
    }
 
@@ -29,16 +29,16 @@ public class CommandSeason extends AbstractCommand {
 
       if (args.length == 0) {
          ISeason season = CalendarAPI.getSeasonProvider().getSeason(CalendarAPI.getCalendarInstance(sender.getEntityWorld()));
-         sender.addChatMessage(new TextComponentTranslation("commands.season.current", season.getName()));
+         sender.sendMessage(new TextComponentTranslation("commands.season.current", season.getName()));
          return;
       }
 
       if (args.length == 1) {
          if (args[0].equals("list")) {
             ISeason[] seasons = CalendarAPI.getSeasonProvider().getAllSeasons();
-            sender.addChatMessage(new TextComponentTranslation("commands.season.listing"));
+            sender.sendMessage(new TextComponentTranslation("commands.season.listing"));
             for (ISeason season : seasons) {
-               sender.addChatMessage(new TextComponentString("  " + season.getName() + ", " + season.getBeginningDate().getDay() + ". " + season.getBeginningDate().getMonth()));
+               sender.sendMessage(new TextComponentString("  " + season.getName() + ", " + season.getBeginningDate().getDay() + ". " + season.getBeginningDate().getMonth()));
             }
          }
       }

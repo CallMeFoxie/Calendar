@@ -17,7 +17,7 @@ import java.util.List;
 public class FixedCommandTime extends AbstractCommand {
 
    @Override
-   public String getCommandName() {
+   public String getName() {
       return "time";
    }
 
@@ -27,7 +27,7 @@ public class FixedCommandTime extends AbstractCommand {
    }
 
    @Override
-   public String getCommandUsage(ICommandSender sender) {
+   public String getUsage(ICommandSender sender) {
       return "commands.fixedtime.usage";
    }
 
@@ -38,12 +38,12 @@ public class FixedCommandTime extends AbstractCommand {
 
       if (args.length == 0) {
          ICalendarProvider calendar = CalendarAPI.getCalendarInstance(sender.getEntityWorld());
-         sender.addChatMessage(new TextComponentString("It is " + calendar.getHour() + ":" + calendar.getMinute()));
+         sender.sendMessage(new TextComponentString("It is " + calendar.getHour() + ":" + calendar.getMinute()));
          return;
       }
 
       if (args.length < 2) {
-         sender.addChatMessage(new TextComponentTranslation("commands.fixedtime.usage"));
+         sender.sendMessage(new TextComponentTranslation("commands.fixedtime.usage"));
       }
 
       World world = null;
@@ -60,7 +60,7 @@ public class FixedCommandTime extends AbstractCommand {
          else if (args[0].equals("set")) processCommandSet(world, args[1]);
          else throw new WrongUsageException("commands.fixedtime.usage");
       } catch (Exception e) {
-         sender.addChatMessage(new TextComponentTranslation("commands.fixedtime.usage"));
+         sender.sendMessage(new TextComponentTranslation("commands.fixedtime.usage"));
       }
    }
 

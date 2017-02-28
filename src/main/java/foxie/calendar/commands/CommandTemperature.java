@@ -14,12 +14,12 @@ import javax.vecmath.Point3d;
 
 public class CommandTemperature extends AbstractCommand {
    @Override
-   public String getCommandName() {
+   public String getName() {
       return "gettemp";
    }
 
    @Override
-   public String getCommandUsage(ICommandSender sender) {
+   public String getUsage(ICommandSender sender) {
       return "commands.season.usage";
    }
 
@@ -30,11 +30,11 @@ public class CommandTemperature extends AbstractCommand {
 
       Point3d location = getPosition(sender);
 
-      sender.addChatMessage(new TextComponentString("Average temperature: " +
+      sender.sendMessage(new TextComponentString("Average temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
                       .getAverageTemperature(sender.getEntityWorld(), false)));
 
-      sender.addChatMessage(new TextComponentString("Actual temperature: " +
+      sender.sendMessage(new TextComponentString("Actual temperature: " +
               CalendarAPI.getSeasonProvider(MCVersionHelper.getDimensionId(sender.getEntityWorld()))
                       .getTemperature(sender.getEntityWorld(),
                               (int)location.x, (int)location.y, (int)location.z)));

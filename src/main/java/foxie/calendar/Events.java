@@ -36,8 +36,8 @@ public class Events {
       INSTANCE.providerMap = new HashMap<Integer, ICalendarProvider>();
 
       MinecraftServer xserver = FMLCommonHandler.instance().getMinecraftServerInstance();
-      for (int i = 0; i < xserver.getServer().worldServers.length; i++) {
-         WorldServer server = xserver.getServer().worldServers[i];
+      for (int i = 0; i < xserver.getServer().worlds.length; i++) {
+         WorldServer server = xserver.getServer().worlds[i];
          INSTANCE.providerMap.put(MCVersionHelper.getDimensionId(server), CalendarAPI.getCalendarInstance(server.provider.getWorldTime()));
       }
    }
