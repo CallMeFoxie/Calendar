@@ -24,10 +24,19 @@ public class SeasonProvider implements ISeasonProvider {
 
       // init with default values
       seasons = new ArrayList<ISeason>();
-      seasons.add(new Season("winter", CalendarAPI.getCalendarInstance().setDay(21).setMonth(11), 270, 240, 260, 40));
-      seasons.add(new Season("summer", CalendarAPI.getCalendarInstance().setDay(21).setMonth(5), 285, 303, 295, 30));
-      seasons.add(new Season("spring", CalendarAPI.getCalendarInstance().setDay(21).setMonth(2), 260, 280, 285, 20));
-      seasons.add(new Season("autumn", CalendarAPI.getCalendarInstance().setDay(21).setMonth(8), 295, 280, 270, 22));
+      ICalendarProvider instance = CalendarAPI.getCalendarInstance();
+
+      if (instance.getNumberOfMonths() >= 11)
+         seasons.add(new Season("winter", instance.setDay(instance.getDaysInMonth(11) >= 21 ? 21 : 1).setMonth(11), 270, 240, 260, 40));
+
+      if (instance.getNumberOfMonths() >= 5)
+         seasons.add(new Season("summer", instance.setDay(instance.getDaysInMonth(5) >= 21 ? 21 : 1).setMonth(5), 285, 303, 295, 30));
+
+      if (instance.getNumberOfMonths() >= 2)
+         seasons.add(new Season("spring", instance.setDay(instance.getDaysInMonth(2) >= 21 ? 21 : 1).setMonth(2), 260, 280, 285, 20));
+
+      if (instance.getNumberOfMonths() >= 8)
+         seasons.add(new Season("autumn", instance.setDay(instance.getDaysInMonth(8) >= 21 ? 21 : 1).setMonth(8), 295, 280, 270, 22));
 
       // now actually read them from the config
       Configuration cfg = Calendar.INSTANCE.getConfig().getConfig();
@@ -89,7 +98,7 @@ public class SeasonProvider implements ISeasonProvider {
          }
       }
 
-      if(beginning == null) {
+      if (beginning == null) {
          beginning = seasons.get(seasons.size() - 1).getBeginningDate();
          ending = seasons.get(0).getBeginningDate();
       }
@@ -100,7 +109,7 @@ public class SeasonProvider implements ISeasonProvider {
       if (ending.getTime() < beginning.getTime())
          ending.addYears(1);
 
-      return (float)(calendar.getTime() - beginning.getTime()) / (float)(ending.getTime() - beginning.getTime());
+      return (float) (calendar.getTime() - beginning.getTime()) / (float) (ending.getTime() - beginning.getTime());
    }
 
    @Override
@@ -111,7 +120,7 @@ public class SeasonProvider implements ISeasonProvider {
    @Override
    public float getAverageTemperature(World world, boolean withDayOffset) {
       ICalendarProvider provider = CalendarAPI.getCalendarInstance(world);
-      if(withDayOffset)
+      if (withDayOffset)
          return getSeason(provider).getTemperature(getSeasonProgress(provider), provider);
       else
          return getSeason(provider).getAverageTemperature(getSeasonProgress(provider));
