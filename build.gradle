@@ -11,36 +11,20 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-ext.configFile = file "build.properties"
-
-configFile.withReader {
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
-}
-
-def VersionBuild = 0
-if (System.getenv("BUILD_NUMBER") != null) {
-    def buildver = System.getenv("BUILD_NUMBER")
-    VersionBuild = "-${buildver}"
-}
-
-version = "${config.minecraft_version}-${config.mod_version}${VersionBuild}"
+version = "1.12.2-1.6.0"
 group = "foxie"
 archivesBaseName = "Calendar"
 
 minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
+    version = "1.12.2-14.23.5.2768"
     runDir = "run"
-    mappings = config.mappings
-    replaceIn "foxie/calendar/Calendar.java"
-    replace "@VERSION@", "${config.mod_version}"
+    mappings = "snapshot_20170227"
 }
 
 repositories {
@@ -93,7 +77,7 @@ artifacts {
 }
 
 build.dependsOn deobfJar, apiJar
-
+/*
 // deployment
 configurations { deployerJars }
 dependencies { deployerJars "org.apache.maven.wagon:wagon-ssh:2.2" }
@@ -145,3 +129,4 @@ uploadArchives {
         }
     }
 }
+*/
