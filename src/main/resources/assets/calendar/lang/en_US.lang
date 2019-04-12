@@ -1,7 +1,0 @@
-commands.fixedtime.usage=/time set|add|list <morning|midday|evening|midnight|0-23999|hh mm>
-commands.date.usage=/date [list|set <day> [<month> [<year>]]]
-commands.date.listing=CalendarProvider provides these months:
-commands.date.nosuchday=There is no such day in a year!
-commands.season.usage=/season [list]
-commands.season.current=It is %s right now
-commands.season.listing=List of seasons:
